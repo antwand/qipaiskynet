@@ -9,14 +9,14 @@ local Round_list = require "app.vo.Round_list"
 
 local game_action_type=  require "app.config.game_action_type"
 local game_status = require "app.config.game_status" 
-local config = import(".config.config_100")
+local config = require "game.BAIJIALE.config.config_100"
 
 local Action_READY=  require "game.BAIJIALE.action.Action_READY"
 local Action_RESET_CARD =  require "game.BAIJIALE.action.Action_RESET_CARD"
 local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 
  
-local ActionHelper_GameInit=  require "game.BAIJIALE.action.ActionHelper_GameInit"
+local ActionHelper_GameInit=  require "game.BAIJIALE.actionhelper.ActionHelper_GameInit"
 
 
 

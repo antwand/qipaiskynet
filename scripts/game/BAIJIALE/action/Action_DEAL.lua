@@ -7,7 +7,7 @@ Action_DEAL.lua
 ]]
 local game_action_type=  require "app.config.game_action_type"
 local skynet = require "skynet"
-local config = import(".config.config_100")
+local config = import("...BAIJIALE.config.config_100")
 
 
 

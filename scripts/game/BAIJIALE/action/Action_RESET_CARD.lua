@@ -9,7 +9,7 @@ Action_RESET_CARD.lua
 local player_type = require("app.config.player_type")
 local game_action_type=  require "app.config.game_action_type"
 local control_mode=  require "app.config.control_mode"
-local config = import(".config.config_100")
+local config = import("...BAIJIALE.config.config_100")
 
 local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 
