@@ -19,6 +19,9 @@ local Room_list = require "app.vo.Room_list"
 local Player_list = require "app.vo.Player_list"
 
 
+
+local m_game_id = ... --当前游戏id 
+
 local ROOM_ID_INDEX = 0;--当前房间的index
 
 
@@ -32,21 +35,17 @@ local getCurrentRoomId = function()
     return ROOM_ID_INDEX
 end
 
-
 --找出一个空的房间邀请码
 local getCurrentRoomCode = function()
-     local rdm = math.random(100000,999999) --随机数
-     
-     
+    local rdm = math.random(100000,999999) --随机数
+    
     --循环直到找到 空房间 
     while( Room_list.judge_roomcode_repeat(rdm) == true  ) do
         rdm = math.random(100000,999999) --随机数
     end
     
-    
     return rdm
 end
-
 
 --根据游戏id返回一个动态的ip以及port给玩家 让玩家重新去连接
 local getServerIPbyGameId = function(gameId )
@@ -68,6 +67,10 @@ end
 
 
 
+
+
+
+--创建房间 
 function CMD.createRoom(param)
     local result;--返回数据
 
@@ -96,18 +99,26 @@ function CMD.createRoom(param)
     local rid = player.rid;
     if rid then 
          result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.SEAT_ALREAY_IN_ANOTHER_ROOM,nil)
-         return;
+         return result;
     end
     
     
-    --用户房卡是否足够 
+    --用户房卡是否足够  todo  
     local gamename = game_id_constants.getNameById(gameId);
     local filename = string.format("game.%s.config.config_%s", gamename,gameId)
     local config = require (filename);
     if not config then 
         result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.INVALID_PARAM,nil)
-        return;
+        return result;
     end
+    local need_room_card = config.need_room_card *  checknumber(game_config.exports) --需要的房卡 
+    if need_room_card < checknumber(player.roomCard) then 
+        result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.HALL_CREATE_ROOM_NO_CARD,nil)
+        return  result
+    end
+    
+    
+    
     
     
     --创建房间
@@ -116,7 +127,6 @@ function CMD.createRoom(param)
     if rid then 
         --吧rid 标记进个人player里
         local success = skynet.call(srv_token_login, "lua", "setRid", rid)
-        
         
         --创建round 
         local srv_game_action = skynet.call("srv_center", "lua", "getOneServer", "srv_game_action")
@@ -129,7 +139,7 @@ function CMD.createRoom(param)
         
         
 
-        --分配一个新的ip和port过去 
+        --分配一个新的游戏ip和port过去 
         local ip,port = getServerIPbyGameId(gameId);
 
         local pos = math.random(1,4)

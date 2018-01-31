@@ -37,6 +37,8 @@ function CMD.start_init()
     --启动game 的login服务器
     local srv_game_login = center.start_hotfix_service("skynet", "srv_game_login")
     
+    --启动game 的 action 服务器
+    local srv_game_action = center.start_hotfix_service("skynet", "srv_game_action")
 end
 
 

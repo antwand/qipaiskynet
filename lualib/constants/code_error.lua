@@ -44,6 +44,9 @@ exports.LOGIN_IS_OFFLINE = 1002              --用户已经掉线
 exports.HALL_OFFLINE = 5001              --用户不在hall场景
 exports.HALL_SEAT_ALREAY_IN_ANOTHER_ROOM = 5002     -- 已经在其他房间了
 exports.HALL_CREATE_ROOM_FULL = 5002     -- 房间满，找不到空闲的房间
+exports.HALL_CREATE_ROOM_NO_CARD = 5003     -- 房卡不够 
+
+
 
 
 

@@ -20,7 +20,7 @@ function CMD.login_by_uid_token(msg,socket,fd)
     local uid =msg.uid
     local token = msg.token
     
-    print(string.format("srv_hall_login.lua => login_by_token || uid :%s ， token:%s, hall online :%s",uid,token,ONLINE_NUMBER));
+    print(string.format("uid :%s ， token:%s, hall online :%s",uid,token,ONLINE_NUMBER));
     local result ;
     local closefd;
     
