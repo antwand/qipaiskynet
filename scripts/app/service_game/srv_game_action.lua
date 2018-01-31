@@ -100,6 +100,7 @@ function CMD.gameAction(msg,socket,fd)
     elseif action == tostring(game_action_type.BAIJIALE.BET) then --发牌 
         round = CMD.getRoundByRoundId(rid);
         local issuccess,room = Action_BET.handle(uid,rid,msg,socket,fd,round);
+    else
         
     
     end
