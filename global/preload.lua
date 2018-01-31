@@ -1,7 +1,7 @@
 local skynet = require "skynet"
 
 
-
+require "utils.debug"
 require "utils.function"
 require "utils.utils"
 
