@@ -71,8 +71,8 @@ skynet.start(function ()
      --]]
      
     ----------------------------------------------------------------------------
-    
-    
+    --当前需要启动的游戏id 100 百家乐
+    local env_game_id = skynet.getenv("env_game_id")
     
     
     --启动token验证服务器  存储所有的用户信息 Round_list 
@@ -86,12 +86,12 @@ skynet.start(function ()
     
     
     -- --启动hall大厅main 存储所有房间信息 Room_list 
-    local srv_hall_main = center.start_hotfix_service("skynetunique", "srv_hall_main")
+    local srv_hall_main = center.start_hotfix_service("skynetunique", "srv_hall_main",env_game_id)
     
      
     
     --启动game游戏的main 目前只做了一款 百家乐  存储所有的牌局 Round_list
-    local srv_game_main = center.start_hotfix_service("skynetunique", "srv_game_main")
+    local srv_game_main = center.start_hotfix_service("skynetunique", "srv_game_main",env_game_id)
      
     
     

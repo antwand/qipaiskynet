@@ -12,6 +12,8 @@ local logger = log4.get_logger(SERVICE_NAME)
 local center = require "center"
 
 
+local m_game_id = ...
+
 local CMD = {};
 
 --[[
@@ -22,7 +24,6 @@ function CMD.start_init()
    
     local env = skynet.getenv("env")
     local config_server = require('config.' .. env .. ".config_server")
-     local env_game_id = skynet.getenv("env_game_id")
     
     --[[ 
                         大厅目前支持http/websocket两种方式连接  具体根据游戏逻辑实际确认用哪种  
@@ -30,8 +31,8 @@ function CMD.start_init()
     ]]
      
     --启动大厅的http 连接
-    local port_hall = config_server["game_"..env_game_id].server.port_hall
-    local body_size_limit_hall = config_server["game_"..env_game_id].server.body_size_limit_hall
+    local port_hall = config_server["game_"..m_game_id].server.port_hall
+    local body_size_limit_hall = config_server["game_"..m_game_id].server.body_size_limit_hall
     local srv_net_http_login = center.start_reboot_service("skynet", "srv_net_http", port_hall,  body_size_limit_hall,"agent")
    
     --启动大厅 的gate  websocket服务
@@ -45,7 +46,7 @@ function CMD.start_init()
     local srv_hall_login = center.start_hotfix_service("skynet", "srv_hall_login")
     
     --启动大厅服务
-    local srv_hall_room = center.start_hotfix_service("skynet", "srv_hall_room",env_game_id)
+    local srv_hall_room = center.start_hotfix_service("skynet", "srv_hall_room",m_game_id)
     
 end
 

@@ -12,6 +12,10 @@ local logger = log4.get_logger(SERVICE_NAME)
 local center = require "center"
 
 
+local m_game_id = ...  --当前的gameid
+
+
+
 local CMD = {};
 
 --[[
@@ -21,14 +25,13 @@ function CMD.start_init()
     print(string.format("服务器 %s 启动完成！",SERVICE_NAME));
    
     local env = skynet.getenv("env")
-    local env_game_id = skynet.getenv("env_game_id")
     local config_server = require('config.' .. env .. ".config_server")
    
     
     
    
     --启动游戏 的gate  websocket服务
-    local game = config_server["game_"..env_game_id].server.game[1]
+    local game = config_server["game_"..m_game_id].server.game[1]
     local port_game_websocket = game.port_game_websocket
     local body_size_limit_game_websocket = game.body_size_limit_game_websocket 
     
