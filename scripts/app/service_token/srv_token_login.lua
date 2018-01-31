@@ -124,6 +124,7 @@ function CMD.chanage_serverScene_by_uid_token(uid,token,scene,socket,fd)
     local ret = CMD.check_by_uid_token(uid,token)
     if ret == true then 
         local player =  Player_list.getPlayerByPlayerId(uid); 
+        
         --如果之前的服务器还建立着连接 先断掉  始终保持一个长链接
         if player:getBindSocket() then
             skynet.call(player:getBindSocket(), "lua", "close", player:getfd())

@@ -124,7 +124,9 @@ end
 function Player:unbindSocket  () 
     self.socket = nil;
 end
-
+function Player:getfd  (rid) 
+    return self.fd ;
+end
 
 
 

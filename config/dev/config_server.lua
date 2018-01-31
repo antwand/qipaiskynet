@@ -25,15 +25,15 @@ local root = {
             
             game = {
                 {
-                    ip_game_websocket = "192.168.103.91",
+                    ip_game_websocket = "192.168.83.220",
                     port_game_websocket = 8503,
                     body_size_limit_game_websocket = 65536,
                     -- maxclient = 1024,   -- 最多允许 1024 个外部连接同时建立
                     -- nodelay = true,     -- 给外部连接设置  TCP_NODELAY 属性
                 },
                 {
-                    ip_game_websocket = "192.168.103.91",
-                    port_game_websocket = 8603,
+                    ip_game_websocket = "192.168.83.220",
+                    port_game_websocket = 8503,
                     body_size_limit_game_websocket = 65536,
                     -- maxclient = 1024,   -- 最多允许 1024 个外部连接同时建立
                     -- nodelay = true,     -- 给外部连接设置  TCP_NODELAY 属性

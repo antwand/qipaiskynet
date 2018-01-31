@@ -51,14 +51,15 @@ end
 local getServerIPbyGameId = function(gameId )
     local env = skynet.getenv("env")
     local config_server = require('config.' .. env .. ".config_server")
-    local gameservers = config_server.game_[gameId].server.game
+    local gameservers = config_server["game_"..gameId].server.game
     local rdm = math.random(1,#gameservers)
-
     local one = gameservers[rdm];
     local body_size_limit_hall = one.body_size_limit_hall
-    local ip =  one.ip
-    local port =  one.port
+    local ip =  one.ip_game_websocket
+    local port =  one.port_game_websocket
     
+    --先测试 用本机ip
+    --ip = skynet_ip();
     return ip,port
 end
 
@@ -141,7 +142,7 @@ function CMD.createRoom(param)
 
         --分配一个新的游戏ip和port过去 
         local ip,port = getServerIPbyGameId(gameId);
-
+        print(string.format("当前分配带的游戏ip: %s,port:%s",ip,port));
         local pos = math.random(1,4)
         local data={
             ip = ip,
