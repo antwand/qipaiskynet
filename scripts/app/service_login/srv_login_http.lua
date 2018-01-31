@@ -16,25 +16,12 @@ function CMD.login(param)
     
     local uid="GIMXDpPzfJWFqL7XAAAA";
     local secret = "fdsaferghxxxf";
-    --验证 token 并的到uid 
+    --验证 token 并的到uid  目前没启动mysql 先假定写死
+    local token = "fdsafGIMXDpPzfJWFqL7XAAAA";
     
-    
-    local result;
-    if true then 
-         --验证用户名 密码 
-        local data={
-            uid = uid,
-            username = username,
-            nickname="张三",
-            avatar="http://img6.bdstatic.com/img/image/smallpic/touxiang1227.jpeg",
-            token=tool.token_create(uid, password, secret),
-            diamonds = 100,
-            gender=1
-        }
-        result = code_utils.package(all_game_command.common_user_login,code_error.OK,data)
-    else
-        result = code_utils.package(all_game_command.common_user_login,code_error.LOGIN_NAME_PW_ERROR,nil)
-    end
+    --调用login_third 替换下cmd 
+    local result  = CMD.login_third ({username = username, token = token})
+    result.cmd = all_game_command.CMD.common_user_login
     
     return result;
 end

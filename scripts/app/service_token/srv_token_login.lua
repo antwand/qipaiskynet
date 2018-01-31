@@ -14,6 +14,7 @@ local ONLINE_NUMBER = 0 --在线人数
 
 --通过token 获取player对象 
 local function getPlayerByToken(token)
+    --为连接数据库  先假定一个用户
     local uid = "GIMXDpPzfJWFqL7XAAAA"
     local data={
         uid = uid,
