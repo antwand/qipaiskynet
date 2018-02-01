@@ -24,7 +24,8 @@ RoomList.deleteRoom = function(roomid)
     if (roomid) then
         local room = RoomList.rooms[roomid];
         RoomList.rooms[roomid] = nil;
-
+        
+        room:close();
         return room;
     end
 end

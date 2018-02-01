@@ -114,4 +114,22 @@ end
 
 
 
+--[[
+更改每一局的游戏状态 game_status.lua
+]]
+function Round:change_status(status)
+    self.status = status;
+end
+
+
+
+--[[
+关闭这个牌局
+]]
+function Round:close()
+    self:close_timeout()
+end
+
+
+
 return Round;

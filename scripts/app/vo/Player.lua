@@ -13,9 +13,9 @@ function Player:new(uid,opts)
         nickname = opts.nickname or "",
         gender = opts.gender, -- 性别
         avatar = opts.avatar, -- 头像
-        diamonds = opts.diamonds or 0,
-        roomCard = opts.roomCard or 0,
-        score = opts.score or 0,
+        diamonds = opts.diamonds or 0,--钻石
+        roomCard = opts.roomCard or 0,--房卡
+        score = opts.score or 0, --得分
         rid = opts.rid or nil,--房间 
         type = opts.type; --玩家类型 player_type
         

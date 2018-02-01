@@ -68,6 +68,10 @@ end
 
 
 
+--关闭房间
+function room:close()
+    
+end
 
 
 --function room:push_message(uid, name, msg)
@@ -144,9 +148,5 @@ end
 --end
 
 
-----关闭房间
---function room:close()
---    skynet.send(".srv_hall_room", "lua", "close", self.rid)
---end
 
 return room

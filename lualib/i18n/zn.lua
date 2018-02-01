@@ -26,12 +26,12 @@ root.label = {
 
     
 
-    [code_error.SEAT_NOT_ENTER_ROOM] = "还未进入房间",
-    [code_error.SEAT_ALREAY_FULL] = "房间已经满员",
-    [code_error.SEAT_NOT_ROOM_UID] = "不是房主",
-    [code_error.SEAT_NOT_WAIT_STATUS] = "房间不处于等待状态",
-    [code_error.SEAT_NOT_READY_STATUS] = "房间不处于准备状态",
-    [code_error.SEAT_DISSOLVE] = "房间已解散"
+--    [code_error.SEAT_NOT_ENTER_ROOM] = "还未进入房间",
+--    [code_error.SEAT_ALREAY_FULL] = "房间已经满员",
+--    [code_error.SEAT_NOT_ROOM_UID] = "不是房主",
+--    [code_error.SEAT_NOT_WAIT_STATUS] = "房间不处于等待状态",
+--    [code_error.SEAT_NOT_READY_STATUS] = "房间不处于准备状态",
+--    [code_error.SEAT_DISSOLVE] = "房间已解散"
 }
 
 

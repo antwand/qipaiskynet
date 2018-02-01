@@ -382,8 +382,8 @@ exports.PUSHCMD = {
     -- closeRoomByPlayerPush="on_room_close_player", -- 其它人员关闭房间
 
 
-    -- gameActionPush="on_room_game_action", -- 游戏动作推送
-    -- -- "changeReadyStatusPush"="changeReadyStatusPush", -- 更改准备状态推送(未完成)
+     common_push_game_action="common_push_game_action", -- 游戏动作推送
+     common_push_game_status="common_push_game_status", -- 更改状态推送(未完成)
     -- gameInitPush="gameInitPush"-- 游戏初始化推送(初始牌推送等)
 
 

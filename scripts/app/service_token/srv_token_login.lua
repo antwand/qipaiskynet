@@ -181,7 +181,22 @@ function CMD.setRidWithUid(rid,uid)
     end
     return false;
 end
-
+function CMD.ExitRoomWithUid(uid)
+    local player =  Player_list.getPlayerByPlayerId(uid);
+    if player then 
+    
+        if player:getBindSocket() then
+            skynet.call(player:getBindSocket(), "lua", "close", player:getfd())
+        end
+        
+        --退出房间 默认回到大厅
+        player:setServerScene(game_scene.HallScene);
+        player:bindSocket(nil,nil);
+        player:setRid(nil)
+        return true
+    end
+    return false;
+end
 
 
 

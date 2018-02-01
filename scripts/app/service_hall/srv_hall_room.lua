@@ -16,7 +16,6 @@ local all_game_command = require "proto.all_game_command";
 local game_scene = require "app.config.game_scene"
 
 local Room_list = require "app.vo.Room_list"
-local Player_list = require "app.vo.Player_list"
 
 
 
@@ -129,17 +128,7 @@ function CMD.createRoom(param)
         --吧rid 标记进个人player里
         local success = skynet.call(srv_token_login, "lua", "setRidWithUid", rid,uid);
         
-        --创建round 
-        local srv_game_action = skynet.call("srv_center", "lua", "getOneServer", "srv_game_action")
-        local success = skynet.call(srv_game_action, "lua", "initByRoom", rid)
-        if success == true then 
-            
-        else
-            logger.error("create room is error ,rid: %s", rid)
-        end
         
-        
-
         --分配一个新的游戏ip和port过去 
         local ip,port = getServerIPbyGameId(gameId);
         print(string.format("当前分配带的游戏ip: %s,port:%s",ip,port));
@@ -154,6 +143,15 @@ function CMD.createRoom(param)
             seat_uid_list = {[pos] = player.uid}, --给自己一个随机位置
         }
         local room =  Room_list.setRoom(data);
+        
+        
+        --创建round 第一局
+        local srv_game_action = skynet.call("srv_center", "lua", "getOneServer", "srv_game_action")
+        local success = skynet.call(srv_game_action, "lua", "initByRoom", rid)
+        if success == true then 
+        else
+            logger.error("create room is error ,rid: %s", rid)
+        end
         result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.OK,data)
         
     else
@@ -167,6 +165,20 @@ end
 
 
 
+--关闭某个房间 
+function CMD.closeRoom(rid)
+    local room = Room_list.deleteRoom(rid);
+    local seat_uid_list = room.seat_uid_list -- 坐下的玩家 
+    local watcher_uid_list = room.watcher_uid_list;-- 观察玩家
+    
+    local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
+    for k, v in pairs(seat_uid_list) do 
+        skynet.call(srv_token_login, "lua", "ExitRoomWithUid", v)
+    end
+    for k, v in pairs(watcher_uid_list) do 
+        skynet.call(srv_token_login, "lua", "ExitRoomWithUid", v)
+    end
+end
 
 
 

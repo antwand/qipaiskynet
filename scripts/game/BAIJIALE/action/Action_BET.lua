@@ -6,6 +6,8 @@ Action_BET.lua
 
 ]]
 local game_action_type=  require "app.config.game_action_type"
+local game_status=  require "app.config.game_status"
+
 local skynet = require "skynet"
 local config = import("...BAIJIALE.config.config_100")
 
@@ -20,14 +22,25 @@ local root = {}
 
 --计时器启动  
 root.init = function(rid,round)
-    --下一家出牌的回调 
-    local func = function(masterPlayer)
-        --ai出牌 
-        Action_DEAL.init(rid,round);
+    --状态
+    local status = game_status.BAIJIALE.ENDED
+    round:change_status(status)
+    
+    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_status,code_error.OK,{status = status})
+    local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
+    skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
+    
+    
+    
+    
+    --计时器
+    local func = function()
+       
+        
         
     end
-    local ti = config.reset_card_timeout
-    round.create_timeout(ti, func)
+    local ti = config.bet_timeout
+    round:create_timeout(ti, func)
     
     return nil
 end
@@ -41,29 +54,38 @@ end
 
 --处理 
 root.handle = function(uid,rid,msg,socket,fd,round)
-    --房间信息取出来 广播
+    local sendMe = function(endData)
+        endData.sn = msg.sn;
+        endData.type = "RESPONSE"
+        skynet.call(socket, "lua", "send",fd,cjson_encode(endData))
+    end
+    
+
     local data = {
         action = msg.action,
-        param = msg.param,
+        param = msg.param,--{bet:}
         uid = uid,
     }
-    local result = code_utils.package(all_game_command.CMD.common_game_action,code_error.OK,data)
+    --判断用户的下注码够不够 
+    local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
+    local player = skynet.call(srv_token_login, "lua", "get_player_by_uid", uid)
+    local currentbet = checkint(msg.param.bet);
+    if currentbet < 0 or currentbet > checkint(player.diamonds) then 
+        local result = code_utils.package(all_game_command.CMD.common_game_action,code_error.NO_DIAMONDS,data)
+        sendMe(result);
+        return;
+    end
     
+
+    --房间信息取出来 广播
+    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_action,code_error.OK,data)
     local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
-    skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,data,uid)
+    skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result,uid)
     
     
     --给自己回复消息
-    local result = result;
-    result.sn = msg.sn;
-    result.type = "RESPONSE"
-    skynet.call(socket, "lua", "send",fd,cjson_encode(result))
-    
-    
-    
-    --room
-    local room = skynet.call(srv_hall_room, "lua", "getRoomByRoomId", rid)
-    
+    result.cmd = all_game_command.CMD.common_game_action
+    sendMe(result);
     
     
     return true

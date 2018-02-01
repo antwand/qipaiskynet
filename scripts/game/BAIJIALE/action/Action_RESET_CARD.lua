@@ -29,13 +29,13 @@ local root = {}
 --计时器启动  
 root.init = function(rid,round)
     --下一家出牌的回调 
-    local func = function(masterPlayer)
+    local func = function()
         --ai出牌 
         Action_BET.init(rid,round);
         
     end
     local ti = config.reset_card_timeout
-    round.create_timeout(ti, func)
+    round:create_timeout(ti, func)
     
     return nil
 end

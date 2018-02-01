@@ -16,7 +16,7 @@ local Action_RESET_CARD =  require "game.BAIJIALE.action.Action_RESET_CARD"
 local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 
  
-local ActionHelper_GameInit=  require "game.BAIJIALE.actionhelper.ActionHelper_GameInit"
+local ActionHelper_GameInit=  require "game.BAIJIALE.actionpush.ActionHelper_GameInit"
 
 
 
@@ -30,11 +30,25 @@ local CMD = {}
 
 
 
--- 创建某一局的桌子 
+-- 创建某一局的桌子  并创建第一局
 function CMD.initByRoom(rid)
-    return Round_list.initByRoom(rid);
+    local success = Round_list.initByRoom(rid);
+    if success == true then 
+        CMD.initByRound(rid);
+    end
+    
+    return success
 end
-
+-- 创建局
+function CMD.initByRound(rid)
+    local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
+    local room = skynet.call(srv_hall_room, "lua", "getRoomByRoomId", rid)
+    local round = CMD._createRound(room);
+    
+    Action_READY.init(rid,round);
+    
+    return round
+end
 
 
 
@@ -78,22 +92,27 @@ function CMD.gameAction(msg,socket,fd)
     --action
     local action = tostring(msg.action);
     if action == tostring(game_action_type.BAIJIALE.READY) then --准备，必须有人发  否则不会开始 
-        local isfull,room = Action_READY.handle(uid,rid,msg,socket,fd);
-        if isfull == true then --满人
-            round = CMD._createRound(room);
+        local isfull = Action_READY.handle(uid,rid,msg,socket,fd);
+        if isfull == 0 then --刚满人
+            round = CMD.getRoundByRoundId(rid);
             ActionHelper_GameInit.push_all(round);
             
-            Action_RESET_CARD.init(rid,round);
+            --启动一个下注倒计时 
+            --Action_RESET_CARD.init(rid,round);
+            Action_BET.init(rid,round);
+        elseif isfull == 1 then --中途加入，需要把整个桌面的信息传递给玩家
+            round = CMD.getRoundByRoundId(rid);
+            ActionHelper_GameInit.push_one(round,uid);
         end
         
-    elseif action == tostring(game_action_type.BAIJIALE.RESET_CARD) then --切牌 
+    elseif action == tostring(game_action_type.BAIJIALE.RESET_CARD) then --切牌  就是玩家洗牌 这步暂时省略
+        --[[
         round = CMD.getRoundByRoundId(rid);
         local isfull,room = Action_RESET_CARD.handle(uid,rid,msg,socket,fd,round);
         if isfull == true then --满人
             
-            
         end
-        
+        ]]
     elseif action == tostring(game_action_type.BAIJIALE.BET) then --下注 
         round = CMD.getRoundByRoundId(rid);
         local issuccess = Action_BET.handle(uid,rid,msg,socket,fd,round);

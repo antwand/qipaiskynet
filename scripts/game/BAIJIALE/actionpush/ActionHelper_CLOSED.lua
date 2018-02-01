@@ -1,17 +1,19 @@
 
 --[[
-Action_DEAL.lua
+ActionHelper_CLOSED.lua
 
-发牌操作 
+整个牌局房间结束  
 
 ]]
+
+local player_type = require("app.config.player_type")
+local game_action_type=  require "app.config.game_action_type"
+local control_mode=  require "app.config.control_mode"
+local config = import("...BAIJIALE.config.config_100")
+
+
 local skynet = require "skynet"
 
-local game_action_type=  require "app.config.game_action_type"
-local game_status=  require "app.config.game_status"
-
-local config = import("...BAIJIALE.config.config_100")
-local ActionHelper_ENDED=  require "game.BAIJIALE.actionpush.ActionHelper_ENDED"
 
 
 
@@ -23,7 +25,7 @@ local root = {}
 --计时器启动  
 root.init = function(rid,round)
     --状态
-    local status = game_status.BAIJIALE.DEAL
+    local status = game_status.BAIJIALE.CLOSED
     round:change_status(status)
     
     local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_status,code_error.OK,{status = status})
@@ -31,29 +33,12 @@ root.init = function(rid,round)
     skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
     
     
-    
-    --发牌 并吧最后的分数给呈现出来 
-    --to do 
-    
-    
-    
-    --计时器
-    local func = function(masterPlayer)    
-        ActionHelper_ENDED.init(rid,round);
-    end
-    local ti = config.deal_card_timeout
-    round:create_timeout(ti, func)
+    --马上关闭并回收房间
+    round:close();
+    skynet.call(srv_hall_room, "lua", "closeRoom", rid)
     
     
     return nil
-end
-
-
-
---处理 
-root.hanle = function()
-
-
 end
 
 

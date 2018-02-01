@@ -7,6 +7,7 @@ local exports ={}
 
 exports.game_name = '百家乐'; --游戏名称
 exports.game_id = 100; -- 游戏ID
+exports.desk_player_num = 1; -- 几个人即可开桌
 exports.max_player_num = 2; -- 最大玩家数
 exports.max_watcher_num = 8; --最大观看者数(0表示不允许人观看)
 
@@ -24,9 +25,8 @@ exports.ai_tick_interval = 100; -- AI执行间隔(毫秒)
 
 exports.reset_card_timeout = 0; -- 切牌超时(毫秒,-1表示不超时)
 exports.bet_timeout = 0; -- 押注超时(毫秒,-1表示不超时)
-exports.show_card_timeout = 0; -- 出牌超时(毫秒,-1表示不超时)
-exports.response_card_timeout = 0; -- 响应牌超时(毫秒,-1表示不超时)
-
+exports.deal_card_timeout = 0; -- 庄家发牌超时(毫秒,-1表示不超时)
+exports.next_round_timeout =0;--下一局开始的超时
 
 
 
