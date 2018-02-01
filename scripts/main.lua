@@ -62,12 +62,16 @@ skynet.start(function ()
                              分为 token ，login ， hall ，game
                             每个下面会有一个_main的脚本来负责管理以及启动
                             
-             token负责所有用户的验证处理
+             token负责所有用户的验证处理 （Player_list 存储）
              login负责用户登录的逻辑处理，会转交到token验证以及获取用户信息  可横向水平任意拓展
-             hall 大厅，负责游戏创建房间  
+             hall 大厅，负责游戏创建房间  （Room_list存储）
                                                        （为了防止非法请求，进入hall的连接会先去token验证一次）
-             game 负责各个子游戏的处理  目前只做了百家乐  可横向水平拓展  
+             game 负责各个子游戏的处理  目前只做了百家乐  可横向水平拓展  （Round_list存储）
                                                       （为了防止非法请求，进入game 的连接会先去token验证一次，并且是经过了hall进入的）
+                                                      
+          
+                            理论上，所有服务器都可以任意的横向水平拓展，但数据就需存储于redis或者数据中
+                            相应获取   Player_list，Room_list，Round_list 改动一下即可                                                      
      --]]
      
     ----------------------------------------------------------------------------
@@ -75,7 +79,7 @@ skynet.start(function ()
     local env_game_id = skynet.getenv("env_game_id")
     
     
-    --启动token验证服务器  存储所有的用户信息 Round_list 
+    --启动token验证服务器  存储所有的用户信息 Player_list 
     local srv_token_main = center.start_hotfix_service("skynetunique", "srv_token_main")
     
     
