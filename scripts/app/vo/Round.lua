@@ -22,13 +22,13 @@ function Round:new(roundid,opts)
         rid = opts.rid,--房间id 
         masterId = opts.masterId, --庄家id 
         
-        seat_uid_list = opts.seat_uid_list, -- 坐下的玩家 
-        watcher_uid_list = opts.watcher_uid_list,  -- 观察玩家
+        seat_uid_list = opts.seat_uid_list or {}, -- 坐下的玩家 
+        watcher_uid_list = opts.watcher_uid_list or {},  -- 观察玩家
         
         --round = opts.round ,
         status = opts.status ,
         
-        playerCards = {},
+        round_playercard = opts.round_playercard or {},
         
         
         m_timeout = nil,--一个计时器  一个round一个计时器  
@@ -51,7 +51,7 @@ function Round:tostring()
         
         seat_uid_list = self.seat_uid_list, -- 坐下的玩家 
         watcher_uid_list = self.watcher_uid_list,  -- 观察玩家
-        playerCards = self.playerCards or {},
+        round_playercard = self.round_playercard or {},
     }
     
     return o
@@ -61,12 +61,12 @@ end
 --打印能显示的牌  比如如果是其他家取另一家的牌 只显示桌面上的牌 
 function Round:toClosestring(uid)
     
-    local playerCards = {};
-    for k, v in pairs(self.playerCards) do
+    local round_playercard = {};
+    for k, v in pairs(self.round_playercard) do
         if tostring(uid) == tostring(k) then 
-            playerCards[k] = v:tostring()
+            round_playercard[k] = v:tostring()
         else
-            playerCards[k] = v:toClosestring()
+            round_playercard[k] = v:toClosestring()
         end
     
     end
@@ -79,7 +79,7 @@ function Round:toClosestring(uid)
         
         seat_uid_list = self.seat_uid_list, -- 坐下的玩家 
         watcher_uid_list = self.watcher_uid_list,  -- 观察玩家
-        playerCards = playerCards,
+        playerCards = round_playercard,
     }
     
     return o
