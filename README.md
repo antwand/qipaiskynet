@@ -74,6 +74,8 @@ qipai   with  skynet
   1. download  skynet  
        git submodule init  
        git submodule update  
+       git submodule foreach git checkout master  
+       git submodule foreach git pull 
   2. cloud 下  
        Linux: make linux  
        Mac: make macosx 
