@@ -13,7 +13,6 @@ local game_status=  require "app.config.game_status"
 
 
 local config = import("...BAIJIALE.config.config_100")
-local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 
 local ROOM_HANDLE_PEOPLE = {};
 
@@ -41,6 +40,7 @@ root.init = function(rid,round)
     
     --计时器 必须等真人完成 所以不需要计时器
     local func = function()
+        local Action_BET =  require "game.BAIJIALE.action.Action_BET"
         Action_BET.init(rid,round);
     end
     local ti = config.ready_timeout
