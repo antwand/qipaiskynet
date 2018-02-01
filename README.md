@@ -71,13 +71,16 @@ qipai   with  skynet
 <br>
 
 - skynet
-  1. cloud 下  
+  1. download  skynet 
+       git submodule init  
+       git submodule update  
+  2. cloud 下  
        Linux: make linux  
        Mac: make macosx 
 
-  2.  <br>
+  3.  <br>
        killall skynet  
 
-  3.  <br>
+  4.  <br>
        sh bin/start.sh
 
