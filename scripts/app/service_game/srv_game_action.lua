@@ -30,26 +30,23 @@ local CMD = {}
 
 
 
+
+-- 创建局
+function CMD.initByRound(room)
+    local round = CMD._createRound(room);
+    Action_READY.init(room.rid,round);
+    
+    return round
+end
 -- 创建某一局的桌子  并创建第一局
-function CMD.initByRoom(rid)
-    local success = Round_list.initByRoom(rid);
+function CMD.initByRoom(room)
+    local success = Round_list.initByRoom(room.rid);
     if success == true then 
-        CMD.initByRound(rid);
+        CMD.initByRound(room);
     end
     
     return success
 end
--- 创建局
-function CMD.initByRound(rid)
-    local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
-    local room = skynet.call(srv_hall_room, "lua", "getRoomByRoomId", rid)
-    local round = CMD._createRound(room);
-    
-    Action_READY.init(rid,round);
-    
-    return round
-end
-
 
 
 
@@ -150,7 +147,7 @@ end
 --创建round 
 function CMD._createRound(room)
     local rid = room.rid;
-    local round = Round_list.getRoundByRoundId(rid)
+    local round = Round_list.getRoundByRoomid(rid)
     if round then 
         local idx = #round+1
         local masterId = room.masterId;

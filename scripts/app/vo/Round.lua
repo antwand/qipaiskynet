@@ -51,7 +51,7 @@ function Round:tostring()
         
         seat_uid_list = self.seat_uid_list, -- 坐下的玩家 
         watcher_uid_list = self.watcher_uid_list,  -- 观察玩家
-        playerCards = self.playerCards,
+        playerCards = self.playerCards or {},
     }
     
     return o
@@ -100,7 +100,11 @@ function Round:create_timeout(ti, func, ...)
     --永不超时 
     if ti == -1 then  
     elseif ti == 0 then
-        func(table.unpack(args))
+        if args then
+            func(table.unpack(args))
+        else
+            func()
+        end
     else
         self.m_timeout = create_timeout(ti, func, ...)
     end

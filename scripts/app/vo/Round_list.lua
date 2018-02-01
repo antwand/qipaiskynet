@@ -10,6 +10,7 @@ Round_list.rounds = {};
 
 --每一个房间 
 Round_list.initByRoom = function(roomid) 
+    roomid = checkint(roomid)
     if Round_list.rounds[roomid] == nil then 
         Round_list.rounds[roomid] = {};
         
@@ -25,6 +26,7 @@ end
 
 --// private 每一桌
 Round_list.setRound = function(roomid,idx,opts) 
+    roomid = checkint(roomid)
     if Round_list.rounds[roomid] == nil then 
         return nil
     end 
@@ -53,6 +55,7 @@ end
 
 --// private
 Round_list.getRoundByRoundId = function(roomid,index)
+    roomid = checkint(roomid)
     local round = Round_list.rounds[roomid];
     if round then 
         if index == nil then index = #round end
@@ -62,6 +65,13 @@ Round_list.getRoundByRoundId = function(roomid,index)
     return round;
 end
 
+
+Round_list.getRoundByRoomid= function(roomid)
+    roomid = checkint(roomid)
+    local round = Round_list.rounds[roomid];
+
+    return round;
+end
 
 
 

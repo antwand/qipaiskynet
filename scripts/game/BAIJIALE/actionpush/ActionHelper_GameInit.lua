@@ -55,7 +55,7 @@ root.push_all = function(round)
     
     for k, v in pairs(seat_uid_list) do
         --分发给不同的玩家  
-        local data = round.toClosestring(v);
+        local data = round:toClosestring(v);
         local result = code_utils.package(all_game_command.PUSHCMD.game_init_push,code_error.OK,data)
         
         
@@ -63,7 +63,7 @@ root.push_all = function(round)
     end
     
     
-    local data = round.toClosestring(nil);
+    local data = round:toClosestring(nil);
     skynet.call(srv_hall_room, "lua", "broadcastByUids", watcher_uid_list,data)
     
     
@@ -89,7 +89,7 @@ root.push_one = function(round,uid)
     
         if v == uid then
             --分发给不同的玩家  
-            local data = round.toClosestring(v);
+            local data = round:toClosestring(v);
             local result = code_utils.package(all_game_command.PUSHCMD.game_init_push,code_error.OK,data)
             
             
@@ -102,7 +102,7 @@ root.push_one = function(round,uid)
     
     
     
-    local data = round.toClosestring(nil);
+    local data = round:toClosestring(nil);
     skynet.call(srv_hall_room, "lua", "broadcastByUid", uid,data)
     
     

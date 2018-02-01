@@ -46,7 +46,6 @@ function CMD.command_http_handler(path,req,res)
     	result = code_utils.package(nil,code_error.INVALID_PARAM,nil)
 	end
 
-
 	result.sn = sn;
 	result.type = "RESPONSE"
 	return cjson_encode(result); 

@@ -79,7 +79,6 @@ function CMD.createRoom(param)
     local game_config = param.game_config;
     local sn = param.sn;
     
-    
     --创建房间是短连接  我怎么保证用户的请求是否合法  去token验证一次即可 
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
     local player = skynet.call(srv_token_login, "lua", "get_player_by_uid", uid)
@@ -144,21 +143,20 @@ function CMD.createRoom(param)
         }
         local room =  Room_list.setRoom(data);
         
-        
         --创建round 第一局
         local srv_game_action = skynet.call("srv_center", "lua", "getOneServer", "srv_game_action")
-        local success = skynet.call(srv_game_action, "lua", "initByRoom", rid)
+        local success = skynet.call(srv_game_action, "lua", "initByRoom", room:tostring())
         if success == true then 
         else
             logger.error("create room is error ,rid: %s", rid)
         end
+
         result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.OK,data)
         
     else
         -- todo 如果房间不够咋处理 
         result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.HALL_CREATE_ROOM_FULL,nil)
     end
-    
     
     return result;
 end
@@ -208,7 +206,7 @@ function CMD.broadcastRoom(rid, msg,filterUid)
         return ;
     end
     
-    logger.debug("roomid: %s broadcast",tostring(rid))
+    print(string.format("roomid: %s broadcast",tostring(rid)))
     local seat_uid_list = room.seat_uid_list -- 坐下的玩家 
     local watcher_uid_list = room.watcher_uid_list;-- 观察玩家
     

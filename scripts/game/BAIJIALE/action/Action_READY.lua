@@ -35,11 +35,11 @@ root.init = function(rid,round)
     
     local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_status,code_error.OK,{status = status})
     local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
-    skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
+    --skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
     
     
     --计时器 必须等真人完成 所以不需要计时器
-    round.close_timeout()
+    round:close_timeout()
     --[[
     local func = function()
             
