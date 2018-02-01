@@ -56,15 +56,15 @@ root.push_all = function(round)
     for k, v in pairs(seat_uid_list) do
         --分发给不同的玩家  
         local data = round:toClosestring(v);
-        local result = code_utils.package(all_game_command.PUSHCMD.game_init_push,code_error.OK,data)
+        local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_init,code_error.OK,data)
         
         
-        skynet.call(srv_hall_room, "lua", "broadcastByUid", v,data)
+        skynet.call(srv_hall_room, "lua", "broadcastByUid", v,result)
     end
-         dump(seat_uid_list);
     
     local data = round:toClosestring(nil);
-    skynet.call(srv_hall_room, "lua", "broadcastByUids", watcher_uid_list,data)
+    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_init,code_error.OK,data)
+    skynet.call(srv_hall_room, "lua", "broadcastByUids", watcher_uid_list,result)
     
     
     
