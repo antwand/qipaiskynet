@@ -71,7 +71,7 @@ qipai   with  skynet
 <br>
 
 - skynet
-  1. download  skynet 
+  1. download  skynet  
        git submodule init  
        git submodule update  
   2. cloud 下  
