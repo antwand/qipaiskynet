@@ -150,7 +150,6 @@ function CMD.createRoom(param)
         else
             logger.error("create room is error ,rid: %s", rid)
         end
-
         result = code_utils.package(all_game_command.CMD.common_hall_createRoom,code_error.OK,data)
         
     else

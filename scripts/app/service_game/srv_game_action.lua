@@ -73,13 +73,11 @@ function CMD.gameAction(msg,socket,fd)
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
     local player = skynet.call(srv_token_login, "lua", "get_player_by_uid", uid)
     if player.serverScene ~= game_scene.FightScene  then 
-        
         result = code_utils.package(all_game_command.CMD.common_game_action,code_error.INVALID_PARAM,nil)
         closefd = true;
         
         return result,closefd;
     end
-    
     
     
     

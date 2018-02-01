@@ -13,6 +13,7 @@ local game_status=  require "app.config.game_status"
 
 
 local config = import("...BAIJIALE.config.config_100")
+local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 
 local ROOM_HANDLE_PEOPLE = {};
 
@@ -33,20 +34,18 @@ root.init = function(rid,round)
     local status = game_status.BAIJIALE.WAIT
     round:change_status(status)
     
-    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_status,code_error.OK,{status = status})
-    local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
+    --local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_status,code_error.OK,{status = status})
+    --local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
     --skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
     
     
     --计时器 必须等真人完成 所以不需要计时器
-    round:close_timeout()
-    --[[
     local func = function()
-            
+        Action_BET.init(rid,round);
     end
-    local ti = config.bet_timeout
+    local ti = config.ready_timeout
     round:create_timeout(ti, func)
-    ]]
+    
     
     return nil
 end
