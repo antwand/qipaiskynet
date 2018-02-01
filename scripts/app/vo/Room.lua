@@ -18,8 +18,8 @@ function room:new(rid,opt)
         
         
         -- TODO：init 房间信息
-        seat_uid_list = {},                 -- 坐下的玩家 
-        watcher_uid_list = {},              -- 观察玩家
+        seat_uid_list = opt.seat_uid_list,                 -- 坐下的玩家 
+        watcher_uid_list = opt.watcher_uid_list,              -- 观察玩家
         
     }
 

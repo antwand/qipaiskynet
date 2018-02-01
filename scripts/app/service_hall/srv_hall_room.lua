@@ -131,7 +131,7 @@ function CMD.createRoom(param)
         --分配一个新的游戏ip和port过去 
         local ip,port = getServerIPbyGameId(gameId);
         print(string.format("当前分配带的游戏ip: %s,port:%s",ip,port));
-        local pos = math.random(1,4)
+        local pos = math.random(1,config.desk_player_num)
         local data={
             ip = ip,
             port = port,
@@ -207,7 +207,7 @@ function CMD.broadcastRoom(rid, msg,filterUid)
     
     print(string.format("roomid: %s broadcast",tostring(rid)))
     local seat_uid_list = room.seat_uid_list -- 坐下的玩家 
-    local watcher_uid_list = room.watcher_uid_list;-- 观察玩家
+    local watcher_uid_list = room.watcher_uid_list or {};-- 观察玩家
     
     
     local data = cjson_encode(msg)
@@ -225,6 +225,7 @@ end
 
 
 function CMD.broadcastByUids(uids, msg)
+    if not uids then return end
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
    
     local data = cjson_encode(msg)

@@ -209,7 +209,6 @@ end
 --发送消息 
 function CMD.sendMsg(uid,msg)
     local player =  Player_list.getPlayerByPlayerId(uid);
-    
     if player then 
         skynet.call(player:getBindSocket(), "lua", "send", player:getfd(),msg)
         return true

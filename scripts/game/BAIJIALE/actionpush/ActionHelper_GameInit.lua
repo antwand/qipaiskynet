@@ -61,7 +61,7 @@ root.push_all = function(round)
         
         skynet.call(srv_hall_room, "lua", "broadcastByUid", v,data)
     end
-    
+         dump(seat_uid_list);
     
     local data = round:toClosestring(nil);
     skynet.call(srv_hall_room, "lua", "broadcastByUids", watcher_uid_list,data)
