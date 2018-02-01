@@ -171,7 +171,7 @@ end
 
 
 -------------- room 设置 --------------------------------------------------------------
-function CMD.setRid(uid,rid)
+function CMD.setRidWithUid(rid,uid)
     local player =  Player_list.getPlayerByPlayerId(uid);
     
     if player then 

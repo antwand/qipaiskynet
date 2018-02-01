@@ -27,7 +27,7 @@ function CMD.login_by_uid_token(msg,socket,fd)
     
     
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
-    local istrue = skynet.call(srv_token_login, "lua", "chanage_serverScene_by_uid_token", uid,token,game_scene.HallScene,socket,fd)
+    local istrue = skynet.call(srv_token_login, "lua", "chanage_serverScene_by_uid_token", uid,token,game_scene.FightScene,socket,fd)
     if istrue then 
         result = code_utils.package(all_game_command.CMD.common_game_login,code_error.OK,nil)
         

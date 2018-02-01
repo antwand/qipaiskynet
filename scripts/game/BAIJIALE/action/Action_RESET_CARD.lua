@@ -63,7 +63,7 @@ root.handle = function(uid,rid,msg,socket,fd,round)
     
     
     --给自己回复消息
-    local result = data;
+    local result = result;
     result.sn = msg.sn;
     result.type = "RESPONSE"
     skynet.call(socket, "lua", "send",fd,cjson_encode(result))

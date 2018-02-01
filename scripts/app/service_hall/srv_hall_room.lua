@@ -127,7 +127,7 @@ function CMD.createRoom(param)
     local room_code = getCurrentRoomCode();
     if rid then 
         --吧rid 标记进个人player里
-        local success = skynet.call(srv_token_login, "lua", "setRid", rid)
+        local success = skynet.call(srv_token_login, "lua", "setRidWithUid", rid,uid);
         
         --创建round 
         local srv_game_action = skynet.call("srv_center", "lua", "getOneServer", "srv_game_action")
@@ -191,7 +191,12 @@ function CMD.broadcastRoom(rid, msg,filterUid)
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
     local room = Room_list.getRoomByRoomId(rid);
 
-    logger.debug("roomid: %s broadcast",rid)
+    if not room then 
+
+        return ;
+    end
+    
+    logger.debug("roomid: %s broadcast",tostring(rid))
     local seat_uid_list = room.seat_uid_list -- 坐下的玩家 
     local watcher_uid_list = room.watcher_uid_list;-- 观察玩家
     

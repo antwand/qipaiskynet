@@ -72,7 +72,6 @@ function CMD.gameAction(msg,socket,fd)
     
     
     
-    
     local rid = player.rid;--房间rid 
     local round = nil;
     
