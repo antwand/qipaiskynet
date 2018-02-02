@@ -23,7 +23,7 @@ local root = {}
 --计时器启动  
 root.init = function(rid,round)
     --状态
-    local status = game_status.BAIJIALE.ENDED
+    local status = game_status.BAIJIALE.BET
     round:change_status(status)
     
     local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_status,code_error.OK,{status = status})
