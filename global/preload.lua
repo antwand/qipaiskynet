@@ -14,6 +14,7 @@ code_error = require "constants.code_error"
 
 
 Decks = require "poker.Decks"
+Poker = require('poker.Poker');
 
 local logpath = skynet.getenv("logpath")
 local logmode = skynet.getenv("logmode")

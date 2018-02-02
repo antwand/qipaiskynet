@@ -76,7 +76,7 @@ local createPokerss = function ()
             local id = (s - 1) * 13 + (p - 1)
             pokers[id] = id;
 
-            cc.log("one poker :"+ id);
+            --cc.log("one poker :"+ id);
         end
     end
 end;

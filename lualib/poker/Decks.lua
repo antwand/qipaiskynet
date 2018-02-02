@@ -15,7 +15,7 @@
  * @type {{}}
 ]]
 
-local Poker = require('.Poker');
+
 
 
 local Decks ={}
@@ -37,7 +37,7 @@ function Decks:new(numberOfDecks)
     }
     setmetatable(o, {__index = self})
     
-    self:reset();
+    o:reset();
     return o
 end
 
