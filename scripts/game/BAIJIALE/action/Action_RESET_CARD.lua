@@ -10,6 +10,7 @@ local player_type = require("app.config.player_type")
 local game_action_type=  require "app.config.game_action_type"
 local control_mode=  require "app.config.control_mode"
 local config = import("...BAIJIALE.config.config_100")
+local game_status=  require "app.config.game_status"
 
 local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 

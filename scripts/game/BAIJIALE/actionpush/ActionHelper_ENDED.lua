@@ -13,7 +13,7 @@ local control_mode=  require "app.config.control_mode"
 local config = import("...BAIJIALE.config.config_100")
 local ActionHelper_CLOSED=  require "game.BAIJIALE.actionpush.ActionHelper_CLOSED"
 local Action_READY=  require "game.BAIJIALE.action.Action_READY"
-
+local game_status=  require "app.config.game_status"
 
 local skynet = require "skynet"
 
