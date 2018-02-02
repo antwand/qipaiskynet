@@ -59,12 +59,12 @@ root.push_all = function(round)
         local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_init,code_error.OK,data)
         
         
-        skynet.call(srv_hall_room, "lua", "broadcastByUid", v,data)
+        skynet.call(srv_hall_room, "lua", "broadcastByUid", v,result)
     end
-         dump(seat_uid_list);
     
     local data = round:toClosestring(nil);
-    skynet.call(srv_hall_room, "lua", "broadcastByUids", watcher_uid_list,data)
+    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_init,code_error.OK,data)
+    skynet.call(srv_hall_room, "lua", "broadcastByUids", watcher_uid_list,result)
     
     
     

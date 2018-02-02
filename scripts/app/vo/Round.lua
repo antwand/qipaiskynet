@@ -144,8 +144,16 @@ end
 function Round:get_round_player_poker(round_player_poker)
     return self.round_player_poker;
 end
-
-
+function Round:get_open_round_player_poker(round_player_poker)
+    local round_player_poker = self.round_player_poker;
+    
+    local newstr = {}
+    for k,v in pairs(round_player_poker) do
+        newstr[k] = v:tostring()
+    end
+    
+    return newstr;
+end
 
 
 
