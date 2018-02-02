@@ -17,7 +17,7 @@ exports.join_in_playing = 1; --1:可以中途加入，0:不可以
 exports.show_card_animation_type = 1; --挤牌类型 1:3D翻动挤牌 2:滑动挤牌
 exports.min_bet_num=1;
 exports.max_bet_num=100;
-
+exports.decks_num  =1 --几幅牌
 
 
 
@@ -25,8 +25,8 @@ exports.ai_tick_interval = 100; -- AI执行间隔(毫秒)
 
 exports.ready_timeout = -1; -- 准备倒计时(毫秒,-1表示不超时,0表示马上执行下一步，)
 exports.reset_card_timeout = -1; -- 切牌超时(毫秒,-1表示不超时)
-exports.bet_timeout = -1; -- 押注超时(毫秒,-1表示不超时)
-exports.deal_card_timeout = -1; -- 庄家发牌超时(毫秒,-1表示不超时)
+exports.bet_timeout = 1000*20; -- 押注超时(毫秒,-1表示不超时)
+exports.deal_card_timeout = 1000*10; -- 庄家发牌超时(毫秒,-1表示不超时)
 exports.next_round_timeout =-1;--下一局开始的超时(-1表示不超时)
 
 

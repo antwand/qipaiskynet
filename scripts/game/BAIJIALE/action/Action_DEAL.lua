@@ -31,10 +31,9 @@ root.init = function(rid,round)
     skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
     
     
-    
-    --发牌 并吧最后的分数给呈现出来 
-    --to do 
-    
+    --发牌 todo 
+    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_round_player_poker,code_error.OK,{round_player_poker = round:get_round_player_poker()})
+    skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result)
     
     
     --计时器

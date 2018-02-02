@@ -382,8 +382,10 @@ exports.PUSHCMD = {
     -- closeRoomByPlayerPush="on_room_close_player", -- 其它人员关闭房间
 
 
+    common_push_game_init = "common_push_game_init",
      common_push_game_action="common_push_game_action", -- 游戏动作推送
      common_push_game_status="common_push_game_status", -- 更改状态推送(未完成)
+     common_push_game_round_player_poker = "common_push_game_round_player_poker",--推送所有玩家的牌出去
     -- gameInitPush="gameInitPush"-- 游戏初始化推送(初始牌推送等)
 
 

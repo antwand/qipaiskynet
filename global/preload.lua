@@ -13,6 +13,8 @@ code_utils = require "utils.code_utils"
 code_error = require "constants.code_error"
 
 
+Decks = require "poker.Decks"
+
 local logpath = skynet.getenv("logpath")
 local logmode = skynet.getenv("logmode")
 

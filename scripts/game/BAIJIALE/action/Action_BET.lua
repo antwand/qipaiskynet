@@ -35,9 +35,7 @@ root.init = function(rid,round)
     
     --计时器
     local func = function()
-       
-        
-        
+       Action_DEAL.init(rid,round);
     end
     local ti = config.bet_timeout
     round:create_timeout(ti, func)

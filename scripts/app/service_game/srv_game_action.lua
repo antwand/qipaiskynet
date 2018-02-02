@@ -17,7 +17,7 @@ local Action_BET =  require "game.BAIJIALE.action.Action_BET"
 
  
 local ActionHelper_GameInit=  require "game.BAIJIALE.actionpush.ActionHelper_GameInit"
-
+local Round_Player_Poker = require "app.vo.Round_Player_Poker"
 
 
 
@@ -152,9 +152,24 @@ function CMD._createRound(room)
         local seat_uid_list = room.seat_uid_list  -- 坐下的玩家 
         local watcher_uid_list = room.watcher_uid_list  -- 观察玩家
         local status = game_status.BAIJIALE.WAIT;
+        local decks_num = config.decks_num --几幅牌
+        
+        local round = Round_list.setRound(rid,idx,{decks_num = decks_num,masterId = masterId,status=status,seat_uid_list = seat_uid_list,watcher_uid_list = watcher_uid_list});
         
         
-        local round = Round_list.setRound(rid,idx,{masterId = masterId,status=status,seat_uid_list = seat_uid_list,watcher_uid_list = watcher_uid_list});
+        --无论什么类型的棋牌游戏  都可以事先吧round的牌设计好 
+        local decks_poker = round.decks_poker
+        local all = {}
+        for i = 1 , 2, 1 do --庄闲两家
+            local leftCards ={}
+            for i = 1 , 2, 1 do
+                leftCards[#leftCards+1] = decks_poker:draw();--随机获取一张牌
+            end
+            all["npc_"..i] = Round_Player_Poker:new("npc_"..i,{leftCards=leftCards})
+        end
+        round:set_round_player_poker(all);
+    
+    
         
         return round;
     end
