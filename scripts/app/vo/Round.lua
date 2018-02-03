@@ -85,7 +85,7 @@ function Round:toClosestring(uid)
         
         seat_uid_list = self.seat_uid_list, -- 坐下的玩家 
         watcher_uid_list = self.watcher_uid_list,  -- 观察玩家
-        round_player_poker = round_player_poker,
+        round_player_poker = round_player_poker, -- {uid:Round_Player_Poker,uid:Round_Player_Poker}
         --decks_poker = self.decks_poker or {}
     }
     

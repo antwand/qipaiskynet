@@ -11,9 +11,13 @@ local exports = {}
 
 --百家乐 流程
 exports.BAIJIALE = {
-    READY = 1, -- 准备
-    RESET_CARD =2,--切牌  洗牌
-    BET = 3, -- 下注阶段
+    READY = 0, -- 准备
+    RESET_CARD =1,--切牌  洗牌
+    BET = 2, -- 下注阶段
+    
+--    DEAL = 3, --// 发牌阶段
+--    ENDED = 4, --// 已经结束(结算处理等)
+--    CLOSED = 5, --// 已经关闭 房间结束
 }
 
 
