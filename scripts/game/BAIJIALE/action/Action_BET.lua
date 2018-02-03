@@ -35,6 +35,7 @@ root.init = function(rid,round)
     
     --计时器
     local func = function()
+        print("倒计时完毕");
        Action_DEAL.init(rid,round);
     end
     local ti = config.bet_timeout
