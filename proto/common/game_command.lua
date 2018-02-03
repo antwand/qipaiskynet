@@ -1,3 +1,77 @@
+
+local exports={}
+
+
+
+ exports.CMD = {
+    common_user_register="common_user_register",--//注册
+    common_user_login="common_user_login", --// 登录
+    common_user_login_third="common_user_login_third", --// 第三方登录
+    --        loginThird="user_auth", --// 第三方登录
+    --        logout="user_logout", --// 登出退出游戏
+
+
+    common_hall_login = "common_hall_login", --大厅登录 
+     common_hall_createRoom="common_hall_createRoom", -- 创建房间
+    -- joinRoom="room_join", -- 加入房间
+    -- closeRoomByOwner="room_close_owner",--群主解散房间
+    -- closeRoomByPlayer="room_close_player", -- 其它人员关闭房间
+
+
+     common_game_login = "common_game_login", --游戏登录 
+     common_game_action = "common_game_action", --游戏操作
+    -- gameAction="room_game_action" -- 游戏动作推送
+
+    -- "changeReadyStatus"="changeReadyStatus", -- 更改准备状态(准备/取消准备)
+
+    -- "enterRoom"="enterRoom", -- 进入房间
+    -- "leaveRoom"="leaveRoom", -- 离开房间
+    -- "chat"="chat", -- 聊天
+    -- "changeSeat"="changeSeat", -- 更换座位
+    -- "changeControlMode"="changeControlMode", -- 更改控制模式(托管/取消托管)
+    -- "changeGameStatus"="changeGameStatus", -- 更改游戏状态(暂停/继续)
+    -- "gameAction"="gameAction", -- 游戏动作(出牌/碰/吃/明杠/暗杠等)
+}
+
+
+
+---- 推送命令
+exports.PUSHCMD = {
+    common_push_system_heartbeat="common_push_system_heartbeat", --// 心跳包
+
+    -- kickUserPush="on_user_kick", --踢人
+
+
+    -- joinRoomPush="on_room_join", -- 进入房间推送(未完成)
+    -- closeRoomByOwnerPush="on_room_close_owner",--群主解散房间
+    -- closeRoomByPlayerPush="on_room_close_player", -- 其它人员关闭房间
+
+
+    common_push_game_init = "common_push_game_init",
+     --common_push_game_action="common_push_game_action", -- 游戏动作推送
+     common_push_game_status="common_push_game_status", -- 更改状态推送(未完成)
+     common_push_game_round_player_poker = "common_push_game_round_player_poker",--推送所有玩家的牌出去
+    -- gameInitPush="gameInitPush"-- 游戏初始化推送(初始牌推送等)
+
+
+
+    -- "leaveRoomPush"="leaveRoomPush", -- 离开房间推送(未完成)
+    -- "closeRoomPush"="closeRoomPush", -- 关闭房间推送(未完成)
+    -- "chatPush"="chatPush", -- 聊天推送
+    -- "changeSeatPush"="changeSeatPush", -- 更换座位推送(未完成)
+    -- "changeControlModePush"="changeControlModePush", -- 更改控制模式推送(未完成)
+    -- "changeGameStatusPush"="changeGameStatusPush", -- 更改游戏状态推送
+    -- "gameInitPush"="gameInitPush", -- 游戏初始化推送(初始牌推送等)
+    --
+    -- "roundEndPush"="roundEndPush",--一局结束
+    -- "gameEndPush"="gameEndPush",//所有局结束
+};
+
+
+
+return exports
+
+
 --[[
 
 /**
@@ -333,74 +407,3 @@ var responseData = {
 ]]
 
 
-
-local exports={}
-
-
-
- exports.CMD = {
-    common_user_register="common_user_register",--//注册
-    common_user_login="common_user_login", --// 登录
-    common_user_login_third="common_user_login_third", --// 第三方登录
-    --        loginThird="user_auth", --// 第三方登录
-    --        logout="user_logout", --// 登出退出游戏
-
-
-    common_hall_login = "common_hall_login", --大厅登录 
-     common_hall_createRoom="common_hall_createRoom", -- 创建房间
-    -- joinRoom="room_join", -- 加入房间
-    -- closeRoomByOwner="room_close_owner",--群主解散房间
-    -- closeRoomByPlayer="room_close_player", -- 其它人员关闭房间
-
-
-     common_game_login = "common_game_login", --游戏登录 
-     common_game_action = "common_game_action", --游戏操作
-    -- gameAction="room_game_action" -- 游戏动作推送
-
-    -- "changeReadyStatus"="changeReadyStatus", -- 更改准备状态(准备/取消准备)
-
-    -- "enterRoom"="enterRoom", -- 进入房间
-    -- "leaveRoom"="leaveRoom", -- 离开房间
-    -- "chat"="chat", -- 聊天
-    -- "changeSeat"="changeSeat", -- 更换座位
-    -- "changeControlMode"="changeControlMode", -- 更改控制模式(托管/取消托管)
-    -- "changeGameStatus"="changeGameStatus", -- 更改游戏状态(暂停/继续)
-    -- "gameAction"="gameAction", -- 游戏动作(出牌/碰/吃/明杠/暗杠等)
-}
-
-
-
----- 推送命令
-exports.PUSHCMD = {
-    common_push_system_heartbeat="common_push_system_heartbeat", --// 心跳包
-
-    -- kickUserPush="on_user_kick", --踢人
-
-
-    -- joinRoomPush="on_room_join", -- 进入房间推送(未完成)
-    -- closeRoomByOwnerPush="on_room_close_owner",--群主解散房间
-    -- closeRoomByPlayerPush="on_room_close_player", -- 其它人员关闭房间
-
-
-    common_push_game_init = "common_push_game_init",
-     common_push_game_action="common_push_game_action", -- 游戏动作推送
-     common_push_game_status="common_push_game_status", -- 更改状态推送(未完成)
-     common_push_game_round_player_poker = "common_push_game_round_player_poker",--推送所有玩家的牌出去
-    -- gameInitPush="gameInitPush"-- 游戏初始化推送(初始牌推送等)
-
-
-
-    -- "leaveRoomPush"="leaveRoomPush", -- 离开房间推送(未完成)
-    -- "closeRoomPush"="closeRoomPush", -- 关闭房间推送(未完成)
-    -- "chatPush"="chatPush", -- 聊天推送
-    -- "changeSeatPush"="changeSeatPush", -- 更换座位推送(未完成)
-    -- "changeControlModePush"="changeControlModePush", -- 更改控制模式推送(未完成)
-    -- "changeGameStatusPush"="changeGameStatusPush", -- 更改游戏状态推送
-    -- "gameInitPush"="gameInitPush", -- 游戏初始化推送(初始牌推送等)
-    --
-    -- "roundEndPush"="roundEndPush",--一局结束
-    -- "gameEndPush"="gameEndPush",//所有局结束
-};
-
-
-return exports

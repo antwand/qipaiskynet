@@ -61,13 +61,13 @@ root.handle = function(uid,rid,msg,socket,fd,round)
 
     local data = {
         action = msg.action,
-        param = msg.param,--{bet:}
+        param = msg.param,--{bet_num:}
         uid = uid,
     }
     --判断用户的下注码够不够 
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
     local player = skynet.call(srv_token_login, "lua", "get_player_by_uid", uid)
-    local currentbet = checkint(msg.param.bet);
+    local currentbet = checkint(msg.param.bet_num);
     if currentbet < 0 or currentbet > checkint(player.diamonds) then 
         local result = code_utils.package(all_game_command.CMD.common_game_action,code_error.NO_DIAMONDS,data)
         sendMe(result);
@@ -76,7 +76,7 @@ root.handle = function(uid,rid,msg,socket,fd,round)
     
 
     --房间信息取出来 广播
-    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_action,code_error.OK,data)
+    local result = code_utils.package(all_game_command.CMD.common_game_action,code_error.OK,data)
     local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
     skynet.call(srv_hall_room, "lua", "broadcastRoom", rid,result,uid)
     
