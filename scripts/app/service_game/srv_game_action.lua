@@ -154,7 +154,7 @@ function CMD._createRound(room)
         local status = game_status.BAIJIALE.WAIT;
         local decks_num = config.decks_num --几幅牌
         
-        local round = Round_list.setRound(rid,idx,{decks_num = decks_num,masterId = masterId,status=status,seat_uid_list = seat_uid_list,watcher_uid_list = watcher_uid_list});
+        local round = Round_list.setRound(rid,idx,{rid = rid,decks_num = decks_num,masterId = masterId,status=status,seat_uid_list = seat_uid_list,watcher_uid_list = watcher_uid_list});
         
         
         --无论什么类型的棋牌游戏  都可以事先吧round的牌设计好 
