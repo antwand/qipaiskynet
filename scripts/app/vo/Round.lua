@@ -31,7 +31,7 @@ function Round:new(roundid,opts)
         --round = opts.round ,
         status = opts.status ,
         
-        round_player_poker = opts.round_player_poker or {},
+        round_player_poker = opts.round_player_poker or {}, --当局每个玩家的牌 {uid:Round_Player_Poker,uid: }
         decks_poker = opts.decks_poker or  Decks:new(decks_num) , -- 桌面上的牌  能从外面传进来，也能全新创建，比如有些棋牌游戏，下一局，可能要用到上一局剩下的牌，而不是重新创建
         
         m_timeout = nil,--一个计时器  一个round一个计时器  

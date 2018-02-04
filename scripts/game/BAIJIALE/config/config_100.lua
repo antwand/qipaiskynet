@@ -25,9 +25,11 @@ exports.ai_tick_interval = 100; -- AI执行间隔(毫秒)
 
 exports.ready_timeout = -1; -- 准备倒计时(毫秒,-1表示不超时,0表示马上执行下一步，)
 exports.reset_card_timeout = -1; -- 切牌超时(毫秒,-1表示不超时)
-exports.bet_timeout = 1000*5; -- 押注超时(毫秒,-1表示不超时)
-exports.deal_card_timeout = 1000*5; -- 庄家发牌超时(毫秒,-1表示不超时)
-exports.next_round_timeout =-1;--下一局开始的超时(-1表示不超时)
+
+exports.bet_timeout = 1000*20; -- 押注超时(毫秒,-1表示不超时)
+exports.deal_card_timeout = 1000*10; -- 庄家发牌超时(毫秒,-1表示不超时)
+exports.next_round_timeout =5;--下一局开始的超时(-1表示不超时)
+
 
 
 

@@ -6,11 +6,16 @@ local game_status = require "app.config.game_status"
 
 local room = {}
 
+room.TYPE_PRIVATE = "TYPE_PRIVATE" --私人厂
+
+
+
 function room:new(rid,opt)
   
     local o = {
         rid = rid,                          -- 房间id
         room_code = opt.room_code,           --房间邀请码
+        room_type = opt.room_type or room.TYPE_PRIVATE,
         masterId = opt.masterId,            -- 房主uid
         createTime = opt.createTime,        -- 创建时间
         status = game_status.ROOM.WAIT,          -- 房间状态
