@@ -111,7 +111,9 @@ end
 
 
 
-
+root.close = function(rid)
+    ROOM_HANDLE_PEOPLE[rid] = nil
+end
 
 
 

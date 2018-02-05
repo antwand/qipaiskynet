@@ -171,6 +171,7 @@ function CMD.closeRoom(rid)
     local srv_token_login = skynet.call("srv_center", "lua", "getOneServer", "srv_token_login")
     for k, v in pairs(seat_uid_list) do 
         skynet.call(srv_token_login, "lua", "ExitRoomWithUid", v)
+        
     end
     for k, v in pairs(watcher_uid_list) do 
         skynet.call(srv_token_login, "lua", "ExitRoomWithUid", v)

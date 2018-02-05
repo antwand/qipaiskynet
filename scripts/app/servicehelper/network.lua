@@ -44,6 +44,7 @@ function CMD.command_http_handler(path,req,res)
         result = skynet.call(srv_hall_room, "lua", "createRoom", bodytable)
     else
     	result = code_utils.package(nil,code_error.INVALID_PARAM,nil)
+   
 	end
 
 	result.sn = sn;

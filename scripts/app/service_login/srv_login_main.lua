@@ -29,7 +29,9 @@ function CMD.start_init()
     local srv_net_http_login = center.start_reboot_service("skynet", "srv_net_http", port_login,  body_size_limit_login,"agent")
     
     
-    --http 短连接登录 验证用户名密码 或 token
+    
+    
+    --http 短连接登录 验证用户名密码 或 token 
     local srv_login_http = center.start_hotfix_service("skynet", "srv_login_http")
 end
 

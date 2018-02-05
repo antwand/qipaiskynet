@@ -84,26 +84,29 @@ root.push_one = function(round,uid)
     local srv_hall_room = skynet.call("srv_center", "lua", "getOneServer", "srv_hall_room")
     
     
+    
+    
+    
     local isseat = false;
     for k, v in pairs(seat_uid_list) do
     
         if v == uid then
-            --分发给不同的玩家  
+            isseat = true;
+            
             local data = round:toClosestring(v);
-            local result = code_utils.package(all_game_command.PUSHCMD.game_init_push,code_error.OK,data)
+            local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_init,code_error.OK,data)
+            skynet.call(srv_hall_room, "lua", "broadcastByUid", v,result)
             
-            
-            skynet.call(srv_hall_room, "lua", "broadcastByUid", v,data)
-            
-            return data;
+            return result;
         end
     end
     
     
     
-    
+    --如果自己不是坐着的玩家  
     local data = round:toClosestring(nil);
-    skynet.call(srv_hall_room, "lua", "broadcastByUid", uid,data)
+    local result = code_utils.package(all_game_command.PUSHCMD.common_push_game_init,code_error.OK,data)
+    skynet.call(srv_hall_room, "lua", "broadcastByUid", uid,result)
     
     
     return data

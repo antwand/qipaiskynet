@@ -113,9 +113,6 @@ function CMD.gameAction(msg,socket,fd)
         round = CMD.getRoundByRoundId(rid);
         local issuccess = Action_BET.handle(uid,rid,msg,socket,fd,round);
     
-    elseif action == tostring(game_action_type.BAIJIALE.BET) then --发牌 
-        round = CMD.getRoundByRoundId(rid);
-        local issuccess,room = Action_BET.handle(uid,rid,msg,socket,fd,round);
     else
         
     
@@ -155,11 +152,11 @@ function CMD._createRound(room)
         local status = game_status.BAIJIALE.WAIT;
         local decks_num = config.decks_num --几幅牌
         
-        local round = Round_list.setRound(rid,idx,{rid = rid,decks_num = decks_num,masterId = masterId,status=status,seat_uid_list = seat_uid_list,watcher_uid_list = watcher_uid_list});
+        local newround = Round_list.setRound(rid,idx,{rid = rid,decks_num = decks_num,masterId = masterId,status=status,seat_uid_list = seat_uid_list,watcher_uid_list = watcher_uid_list});
         
         
         --无论什么类型的棋牌游戏  都可以事先吧round的牌设计好 
-        local decks_poker = round.decks_poker
+        local decks_poker = newround.decks_poker
         local all = {}
         for i = 1 , 2, 1 do --庄闲两家
             local leftCards ={}
@@ -168,11 +165,11 @@ function CMD._createRound(room)
             end
             all["npc_"..i] = Round_Player_Poker:new("npc_"..i,{leftCards=leftCards})
         end
-        round:set_round_player_poker(all);
+        newround:set_round_player_poker(all);
     
     
         
-        return round;
+        return newround;
     end
     
     return nil;
@@ -181,7 +178,15 @@ end
 
 
 
-
+--[[
+关闭某一个局 
+]]
+function CMD.closeRound(rid,roundid)
+     local round = CMD.getRoundByRoundId(rid,roundid)
+     round:close();
+     
+     Action_READY.close(rid);
+end
 
 
 

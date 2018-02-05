@@ -47,15 +47,15 @@ root.init = function(rid,round)
     
     
     --计时器  开始下一局 
-    local func = function()  
-        --清空旧局
-        round:close();
-        
+    local func = function() 
         --开始创建新局 
         local room = skynet.call(srv_hall_room, "lua", "getRoomByRoomId", rid)
         if room then 
-            --重新开始新局
             local srv_game_action = skynet.call("srv_center", "lua", "getOneServer", "srv_game_action")
+            --清空旧局
+            skynet.call(srv_game_action, "lua", "closeRound", rid)
+        
+            --重新开始新局
             skynet.call(srv_game_action, "lua", "initByRound", room)
         end
     end
