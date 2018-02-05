@@ -113,7 +113,8 @@ function Round:create_timeout(ti, func, ...)
             func()
         end
     else
-        self.m_timeout = create_timeout(ti * 1000, func, ...)
+        local time = ti*100
+        self.m_timeout = create_timeout(time, func, ...)
     end
 end
 function Round:close_timeout()

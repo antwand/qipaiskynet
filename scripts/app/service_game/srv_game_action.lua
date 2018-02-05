@@ -88,6 +88,7 @@ function CMD.gameAction(msg,socket,fd)
     local action = tostring(msg.action);
     if action == tostring(game_action_type.BAIJIALE.READY) then --准备，必须有人发  否则不会开始 
         local isfull = Action_READY.handle(uid,rid,msg,socket,fd);
+        print("==",isfull);
         if isfull == 0 then --刚满人
             round = CMD.getRoundByRoundId(rid);
             ActionHelper_GameInit.push_all(round);
