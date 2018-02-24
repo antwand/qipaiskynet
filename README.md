@@ -86,3 +86,17 @@ qipai   with  skynet
   4.  <br>
        sh bin/start.sh
 
+  
+<br>
+<br>
+
+- vo关系图
+  1. vo  
+       FD_list =》 fd  （就是连接的socket句柄）  
+       PlayerList =》 Player （用户）  
+       RoomList =》 Room       （房间）   
+         
+       Round_list =》   
+       Round   （每一局）   
+       Round_Player_Poker （每一局对应每个用户的牌） 
+

@@ -55,7 +55,7 @@ root.init = function(rid,round)
             --清空旧局
             skynet.call(srv_game_action, "lua", "closeRound", rid)
         
-            --重新开始新局
+            --重新开始新局 
             skynet.call(srv_game_action, "lua", "initByRound", room)
         end
     end

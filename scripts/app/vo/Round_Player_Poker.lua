@@ -3,6 +3,7 @@
     Round_Player_Poker.lua 
 
  *  每一个牌局 的每个玩家的 
+  所以一个Round，中可能有几个 Round_Player_Poker ，比如四人麻将就有四个用户的Round_Player_Poker
  *
  * @type {Round_Player_Poker.lua}
  */
