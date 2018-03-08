@@ -7,28 +7,28 @@ qipai   with  skynet
 <br>
 
 
-- blog 
+- blog
 
-  1. 服务端框架skynet: https://github.com/cloudwu/skynet/wiki 
+  1. 服务端框架skynet: https://github.com/cloudwu/skynet/wiki
   2. skynet学习资源：http://skynetclub.github.io/skynet/resource.html
 
 
 <br>
 <br>
 
-- service 
+- service
 
   1.  log4g
   2.  mysql
   3.  websocket
-  4.  http 
+  4.  http
   6.  all suport agent,  load balancing
   5.  ...
 
 <br>
 <br>
 
-- 3rd Third party library 
+- 3rd Third party library
 
   1. cjson
   2. dpull的webclient (https://github.com/dpull/lua-webclient)
@@ -38,7 +38,7 @@ qipai   with  skynet
 <br>
 <br>
 
-- git 
+- git
 
   1. submodule  
      git submodule add https://github.com/cloudwu/skynet.git
@@ -66,19 +66,37 @@ qipai   with  skynet
     6.Finally, force update your repository
         git push -f origin master
     ```
-    
+
 <br>
 <br>
+
+## 测试 API
+测试内容在 test 目录下
+
+```sh
+# 进入 api 测试目录
+cd test/api
+
+# 下载测试依赖文件
+npm install
+
+# 运行测试，在命令行查看测试结果
+npm test
+
+
+# 也可以打开 test/api/mochawesome-report/mochawesome.html 查看测试结果
+
+```
 
 - skynet
   1. download  skynet  
        git submodule init  
        git submodule update  
        git submodule foreach git checkout master  
-       git submodule foreach git pull 
+       git submodule foreach git pull
   2. cloud 下  
        Linux: make linux  
-       Mac: make macosx 
+       Mac: make macosx
 
   3.  <br>
        killall skynet  
@@ -86,7 +104,7 @@ qipai   with  skynet
   4.  <br>
        sh bin/start.sh
 
-  
+
 <br>
 <br>
 
@@ -95,10 +113,9 @@ qipai   with  skynet
        FD_list =》 fd  （就是连接的socket句柄）  
        PlayerList =》 Player （用户）  
        RoomList =》 Room       （房间）   
-         
+
        Round_list =》   
        {      
         Round   （每一局）   
         Round_Player_Poker （每一局对应每个用户的牌）   
-        } 
-
+        }
