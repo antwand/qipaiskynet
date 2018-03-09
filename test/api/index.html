@@ -16,10 +16,10 @@
      ws.send('WebSocket');
     };
     ws.onmessage = function(ev){
-     println(ev.data);
+     println('【Server】 -> ' + ev.data);
      setTimeout(function(){
-       ws.send(new Date()+'\n');
-     }, 2000);
+       ws.send('【Client】 -> 时间' + new Date()+'\n');
+     }, 10000);
    };
     ws.onclose = function(ev){
      println("close\n");

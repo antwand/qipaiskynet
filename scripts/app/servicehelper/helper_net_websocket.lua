@@ -24,7 +24,7 @@ end
 
 function handler.on_message(ws, msg)
     skynet.error("Received a message from client:\n"..msg)
-    ws:send_text(msg)
+    ws:send_text('reply: '..msg)
 end
 
 function handler.on_error(ws, msg)

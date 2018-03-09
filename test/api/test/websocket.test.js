@@ -1,55 +1,61 @@
 const assert = require('assert');
-const io = require('socket.io-client');
+const Websocket = require('ws');
 
 const hallServer = {
   port: 8303,
   hostname: 'localhost',
 }
 
-const websocketUrl = `ws://${hallServer.hostname}:${hallServer.port}`;
+const websocketUrl = `ws://${hallServer.hostname}:${hallServer.port}/ws`;
+
+
+const socketHelper = {
+  openSocket: (done) => {
+    const websocket = new Websocket(websocketUrl);
+     websocket.on('open', function () {
+       console.log('open...');
+       done()
+    });
+
+    websocket.on('disconnect', function() {
+      console.log('disconnected...');
+    })
+    return websocket;
+  },
+
+  closeSocket: (websocket, done) => {
+    if(websocket.readyState !== 1) {
+        console.log('disconnecting...');
+        websocket.disconnect();
+    } else {
+        console.log('no connection to break...');
+    }
+    done();
+  },
+}
+
 
 describe('大厅服务器', () => {
 
-  var socket;
-
-  beforeEach(function(done) {
-    // Setup
-    socket = io.connect(websocketUrl, { transports: ['websocket'], path: '/ws' });
-     socket.on('connect', function() {
-        console.log('worked...');
-        socket.send('hello');
-        done();
-     });
-     socket.on('disconnect', function() {
-        console.log('disconnected...');
-     })
-  });
-
-   afterEach(function(done) {
-       // Cleanup
-       if(socket.connected) {
-           console.log('disconnecting...');
-           socket.disconnect();
-       } else {
-           console.log('no connection to break...');
-       }
-       done();
-   });
-
-  describe('socket api', () => {
-    it.only('/sproto 协议', function(done){
-      const data = {
-        user: 'test',
-        password: 'test',
-        cmd: 'common_user_login',
-      }
-      socket.send('hello skynet', (data) => {
-        console.log('long: ', data);
-        done()
-      })
-      console.log('websocket', WebSocket)
-      assert.ok(true);
+  describe('websocket api', () => {
+    var websocket;
+    before(function(done) {
+      websocket = socketHelper.openSocket(done);
     });
+
+    after(function(done) {
+      socketHelper.closeSocket(websocket, done);
+    });
+
+    it('发送文本消息，并接受返回结果', (done) => {
+      const msg = 'hello skynet';
+      websocket.send(msg);
+      websocket.on('message', (response) => {
+        assert.equal(response, 'reply: '+msg);
+        done();
+      });
+    });
+
 
   });
 });
