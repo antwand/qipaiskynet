@@ -1,27 +1,27 @@
 --[[
-srv_net_websocket.lua 
+srv_net_websocket.lua
 
  类似 WATCHDOG
 
- 服务器websocket 网关  
+ 服务器websocket 网关
 
 ]]
 
 local skynet = require "skynet"
 local websocket = require "websocket"
 local socket = require "skynet.socket"
-local helper_net_http = require "app.servicehelper.helper_net_http"
+local helper_net_websocket = require "app.servicehelper.helper_net_websocket"
 local game_constants = require "app.config.game_constants";
 
 
---local gate --网关  只有一个 
+--local gate --网关  只有一个
 local SOCKET_TO_CLIENT = {} -- {agent = agent,ws = ws,client = fd, watchdog = skynet.self(),addr = ws.addr, ip = ip}
 
 
 
 
 
---关闭网关  
+--关闭网关
 local function close_agent(fd)
 	if not fd then return end
 	local agent = SOCKET_TO_CLIENT[fd]
@@ -57,7 +57,7 @@ function root.on_open(ws)
 	local agent = skynet.newservice("srv_net_websocket_agent")
 	SOCKET_TO_CLIENT[fd] = {agent = agent,client = fd, watchdog = skynet.self(),addr = ws.addr, ip = ip,ws = ws}
 	skynet.call(agent, "lua", "start", {client = fd, watchdog = skynet.self(),addr = ws.addr, ip = ip })
-	
+
 end
 function root.on_message(ws, msg)
 	print("srv_net_websocket.lua = > on_message (".. ws.fd ..")");
@@ -68,20 +68,20 @@ function root.on_message(ws, msg)
 	    --skynet.call(agent.agent, "lua", "on_message",msg)
 	    local network =  require "app.servicehelper.network";
 	    local result,closefd = network.command_websocket_handler(msg,skynet.self(),fd)
-	    
+
 	    if result then
 	    	send_agent(fd,result);
 	    end
 
-	    if closefd == true then 
+	    if closefd == true then
 	    	close_agent(fd);
 	    end
 	end
-    
+
       -- local data = {a ="sss",cmd = "login"};
       -- local cf = cjson_encode(data)
       -- root.send(fd,cf);
-      
+
 --      skynet.call(m_srv_net_work, "lua", "command_websocket_handler",msg)
 end
 
@@ -95,9 +95,9 @@ function root.on_error(ws, msg)
 function root.on_close(ws, fd, code, reason)
     print("srv_net_websocket.lua = > on_close (".. tostring(fd) ..")");
     fd = fd or ws.fd
-    
+
     close_agent(fd)
-end 
+end
 
 --------------------------- private  end ------------------------------
 
@@ -116,13 +116,13 @@ end
 --------------------------- cmd  start ------------------------------
 local CMD = {};
 --[[
-  启动webscoket 
+  启动webscoket
   http升级协议成websocket协议
  --]]
 function CMD.start(req, res)
     print("srv_net_websocket.lua = > start (",req.fd,")");
-    
-    local fd = req.fd 
+
+    local fd = req.fd
     local ws, err  = websocket.new(req.fd, req.addr, req.headers, root)
     if not ws then
         res.body = err
@@ -144,12 +144,12 @@ end
  --]]
 function CMD.send(fd, data)
 	print("srv_net_websocket.lua = > send (",fd,")");
-    
+
 	send_agent(fd,data);
 end
 --end
 --[[
-  关闭 
+  关闭
  --]]
 function CMD.close(fd)
     close_agent(fd)
@@ -186,23 +186,22 @@ skynet.start(function()
 		end
 		skynet.ret(skynet.pack(f(...)))
 	end)
-  
-  
+
+
     --启动websocket
-	helper_net_http.init( m_body_size_limit,game_constants.HANDLE_TYPE_WEBSOCKET,skynet.self());
 	local id = socket.listen("0.0.0.0", m_port)
 	-- local id = socket.listen("127.0.0.1",port)
 	listen_id = id
-	skynet.error("Listen web port ", m_port)
+	skynet.error("Listen websocket port ", m_port)
 	socket.start(id , function(fd, addr)
 		SOCKET_NUMBER = SOCKET_NUMBER + 1
 		socket.start(fd)
 
-		helper_net_http.on_socket( fd, addr);
-
-		socket.close(fd)
-		SOCKET_NUMBER = SOCKET_NUMBER - 1
+		helper_net_websocket.handle_socket( fd, addr);
+    -- 这里不需要关闭 Websocket 长连接
+		-- socket.close(fd)
+		-- SOCKET_NUMBER = SOCKET_NUMBER - 1
 	end)
 
-	
+
 end)

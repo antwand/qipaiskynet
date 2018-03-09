@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>skynet WebSocket example</title>
+</head>
+<body>
+  <script>
+    function println(msg){
+      document.write(msg + '<br />');
+    }
+
+
+    var ws = new WebSocket('ws://127.0.0.1:8303/ws');
+    ws.onopen = function(){
+     println("open\n");
+     ws.send('WebSocket');
+    };
+    ws.onmessage = function(ev){
+     println(ev.data);
+     setTimeout(function(){
+       ws.send(new Date()+'\n');
+     }, 2000);
+   };
+    ws.onclose = function(ev){
+     println("close\n");
+    };
+    ws.onerror = function(ev){
+     println("error\n");
+    };
+
+  </script>
+</body>
+</html>

@@ -45,7 +45,7 @@ local function accept_connection(header, check_origin, check_origin_ok)
     if not key then
         return 400, "\"Sec-WebSocket-Key\" must not be nil."
     end
-    local protocol = header["sec-websocket-protocol"] 
+    local protocol = header["sec-websocket-protocol"]
     if protocol then
         local i = protocol:find(",", 1, true)
         protocol = "Sec-WebSocket-Protocol: " .. protocol:sub(1, i or i - 1)
@@ -120,7 +120,7 @@ function wslib:send_frame(fin, opcode, data)
         frame = frame .. string.pack("B", len | mask_bit)
     elseif len < 0xFFFF then
         frame = frame .. string.pack(">BH", 126 | mask_bit, len)
-    else 
+    else
         frame = frame .. string.pack(">BL", 127 | mask_bit, len)
     end
     frame = frame .. data
