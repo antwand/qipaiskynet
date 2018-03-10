@@ -22,9 +22,22 @@ function handler.on_open(ws)
     -- ws:send_text("Hello websocket !")
 end
 
+local host
+local sprotoloader = require "sprotoloader"
+local send_request
 function handler.on_message(ws, msg)
     skynet.error("Received a message from client:\n"..msg)
-    ws:send_text('reply: '..msg)
+
+    -- 测试 sproto
+    if (msg == 'sproto') then
+      host = sprotoloader.load(1):host "package"
+	    send_request = host:attach(sprotoloader.load(2))
+      local pack = send_request("push", { text = "hello push" })
+      local package = string.pack(">s2", pack)
+      ws:send_binary(package)
+    else
+      ws:send_text('reply: '..msg);
+    end
 end
 
 function handler.on_error(ws, msg)

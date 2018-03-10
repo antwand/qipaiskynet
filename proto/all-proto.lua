@@ -42,6 +42,22 @@ proto.s2c = sprotoparser.parse [[
 	session 1 : integer
 }
 
+.test {
+	.PropInfo{
+		propid 0 : integer #
+		propname 1 : string
+	}
+	.MyInfo {
+		name 0 : string
+		gold 1 : integer
+		isvip 2 : boolean
+		money 3 : integer(2)
+		propids 4 : *integer
+		propinfos 5 : *PropInfo(propid)
+		pic_data 6 : binary
+		boolarr 7 : *boolean
+	}
+
 heartbeat 1 {}
 ]]
 

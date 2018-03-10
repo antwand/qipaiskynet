@@ -6,28 +6,32 @@ local sprotoloader = require "sprotoloader" --sproto加器器
 
 
 
-local m_proto_name = ...   
+-- local m_proto_name = ...
+--
+--
+-- --初始化
+-- local init_proto = function(m_proto_name)
+--     local filename = string.format("proto.all-proto")
+--     if m_proto_name then
+--         filename = string.format("proto.game_%s.proto", m_proto_name)
+--     end
+--     --local filename = string.format("proto.game_%s.sproto", gameid)
+--     local proto = require (filename);
+--
+--     sprotoloader.save(proto.c2s, 1)
+--     sprotoloader.save(proto.s2c, 2)
+-- end
 
-
---初始化 
-local init_proto = function(m_proto_name)
-    local filename = string.format("proto.all-proto")
-    if m_proto_name then 
-        filename = string.format("proto.game_%s.proto", m_proto_name)
-    end
-    --local filename = string.format("proto.game_%s.sproto", gameid)
-    local proto = require (filename);
-
-    sprotoloader.save(proto.c2s, 1)
-    sprotoloader.save(proto.s2c, 2)
-end
-
-
+local m_proto_list = {
+  'proto.c2s',
+  'proto.s2c',
+}
 
 
 skynet.start(function()
-    init_proto(m_proto_name);
+    -- init_proto(m_proto_name);
     -- don't call skynet.exit() , because sproto.core may unload and the global slot become invalid
+    loadSproto(m_proto_list);
 end)
 
 
@@ -41,23 +45,23 @@ end)
 --    return data[name]   --返回sproto协议在skynet sprotoloader里序号
 --end
 --
---local function load(name)
---    local filename = string.format("proto/%s.sproto", name)
---    local f = assert(io.open(filename), "Can't open " .. name)
---    local t = f:read "a"
---    f:close()                       --以上为读取文件内容
---    return sprotoparser.parse(t)    --调用skynet的sprotoparser解析sproto协议
---end
---
-----加载 sproto 
---function loader.load(list)
---    for i, name in ipairs(list) do
---        local p = load(name)    --加载sproto协议
---        log("load proto [%s] in slot %d", name, i)
---        data[name] = i
---        sprotoloader.save(p, i) --保存解析后的sproto协议
---    end
---end
+local function load(name)
+   local filename = string.format("proto/%s.sproto", name)
+   local f = assert(io.open(filename), "Can't open " .. name)
+   local t = f:read "a"
+   f:close()                       --以上为读取文件内容
+   print('long: ', t);
+   return sprotoparser.parse(t)    --调用skynet的sprotoparser解析sproto协议
+end
+
+--加载 sproto
+function loadSproto(list)
+   for i, name in ipairs(list) do
+       local p = load(name)    --加载sproto协议
+       print("load proto [" .. name .."] in slot "..i)
+       sprotoloader.save(p, i) --保存解析后的sproto协议
+   end
+end
 
 
 
@@ -106,4 +110,3 @@ end)
 --skynet.retpack 跟skynet.ret的区别是向请求方作回应时要用skynet.pack打包]]--
 --
 --return service
-
