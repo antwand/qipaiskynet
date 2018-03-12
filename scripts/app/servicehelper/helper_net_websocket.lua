@@ -26,18 +26,47 @@ local host
 local sprotoloader = require "sprotoloader"
 local send_request
 function handler.on_message(ws, msg)
-    skynet.error("Received a message from client:\n"..msg)
+    -- skynet.error("Received a message from client:\n"..msg)
 
     -- 测试 sproto
-    if (msg == 'sproto') then
+    -- if (msg == 'sproto') then
       host = sprotoloader.load(1):host "package"
-	    send_request = host:attach(sprotoloader.load(2))
-      local pack = send_request("push", { text = "hello push" })
-      local package = string.pack(">s2", pack)
-      ws:send_binary(package)
-    else
-      ws:send_text('reply: '..msg);
-    end
+
+      local type, msgType, msgTable, responseFunc = host:dispatch(msg);
+      skynet.error('msg: ', type, msgType, msgTable, msg);
+
+      for k,v in pairs(msgTable) do
+      	    print(k ,"\t",v)
+      end
+
+	    -- send_request = host:attach(sprotoloader.load(2))
+      --
+      local response = {
+        result = 0,
+        nickname = "long",
+        headimg = "none",
+        sex = 1,
+        city = "beijing",
+        country = "china",
+      }
+      local responseTable = responseFunc(response);
+      -- print('respnse: ', responseTable)
+      -- send_request = host:attach(sprotoloader.load(2))
+      ws:send_binary(responseTable);
+      -- for k,v in pairs(responseTable) do
+            -- print('respnose', k ,",",v)
+      -- end
+      -- local pack = send_request('heartbeat', { name = 'long' })
+      -- local package = string.pack(">s2", pack)
+      -- print('long: ', pack);
+      -- ws:send_binary(package)
+
+      -- city 4 : string
+      -- country 5 : string
+      -- characters 6 : *integer
+    -- else
+      -- ws:send_text('reply: '..msg);
+    -- end
 end
 
 function handler.on_error(ws, msg)
