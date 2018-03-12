@@ -54,7 +54,7 @@ describe('大厅服务器', () => {
 
           function handle_rsp(session, data)
           {
-            console.log('返回结果',JSON.stringify(data));
+            console.log('返回结果', data);
             done();
           }
           sp.dispatch({buf: d, sz: d.length}, handle_rsp, handle_rsp);

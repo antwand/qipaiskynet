@@ -36,6 +36,9 @@ function handler.on_message(ws, msg)
 
 	    -- send_request = host:attach(sprotoloader.load(2))
       --
+      for k,v in pairs(msgTable) do
+        print('客户端消息：', k,v)
+      end
       local response = {
         result = 0,
         nickname = "long",
@@ -47,9 +50,7 @@ function handler.on_message(ws, msg)
       local responseTable = responseFunc(response);
 
       ws:send_binary(responseTable);
-      -- for k,v in pairs(responseTable) do
-            -- print('respnose', k ,",",v)
-      -- end
+
       -- local pack = send_request('heartbeat', { name = 'long' })
       -- local package = string.pack(">s2", pack)
       -- print('long: ', pack);
