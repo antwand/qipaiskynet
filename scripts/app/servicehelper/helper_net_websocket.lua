@@ -33,11 +33,6 @@ function handler.on_message(ws, msg)
       host = sprotoloader.load(1):host "package"
 
       local type, msgType, msgTable, responseFunc = host:dispatch(msg);
-      skynet.error('msg: ', type, msgType, msgTable, msg);
-
-      for k,v in pairs(msgTable) do
-      	    print(k ,"\t",v)
-      end
 
 	    -- send_request = host:attach(sprotoloader.load(2))
       --
@@ -50,8 +45,7 @@ function handler.on_message(ws, msg)
         country = "china",
       }
       local responseTable = responseFunc(response);
-      -- print('respnse: ', responseTable)
-      -- send_request = host:attach(sprotoloader.load(2))
+
       ws:send_binary(responseTable);
       -- for k,v in pairs(responseTable) do
             -- print('respnose', k ,",",v)

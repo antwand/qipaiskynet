@@ -1058,7 +1058,6 @@ var Sproto = {
             var size = 0;
             while (srcsz > 0) {
                 var header = src[src_idx];
-                console.log('unpack: ', header, srcsz)
                 --srcsz;
                 ++src_idx
                 if (header == 0xff) {
@@ -1149,7 +1148,9 @@ var Sproto = {
         }
         sproto.dispatch = function(buf, req_cb, rsp_cb) {
             var bin = sproto.unpack(buf);
+            var session, response;
             var header = sproto.decode(sproto.__package, bin);
+
             var len = objlen(sproto.__package, bin);
             var content = bin.buf.slice(len);
 
@@ -1170,7 +1171,7 @@ var Sproto = {
                 }
                 session = header.session;
                 if (!sproto.__session[session]) {
-                    alert("session not found");
+                    alert("request session not found");
                 }
                 response = sproto.__session[session];
                 sproto.__session[session] = null;
