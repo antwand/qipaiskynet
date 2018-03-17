@@ -3,4 +3,32 @@
 	session 1 : integer
 }
 
-heartbeat 1 {}
+refresh_card 1001 {
+  request {
+    name 0 : string
+    total_cards 1 : integer
+    nickname 2 : string
+  }
+  response {
+
+  }
+}
+
+heartbeat 1002 {}
+
+login 1 {
+        request {
+                platform 0 : string
+                game 1 : string
+                token 2 : string
+        }
+        response {
+                result 0 : integer
+                nickname 1 : string
+                headimg 2 : string
+                sex 3 : integer
+                city 4 : string
+                country 5 : string
+                characters 6 : *integer
+        }
+}

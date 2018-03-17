@@ -445,10 +445,11 @@ var Sproto = {
             begin = 0;
             end = sproto.protocol_n;
             while (begin < end) {
-                var mid = (begin + end) / 2;
-                var t = sproto.proto[mid].tag;
+                var mid = Math.floor((begin + end) / 2);
+                var t = sproto.proto[mid] && sproto.proto[mid].tag;
                 if (t == proto) {
                     p = sproto.proto[mid];
+                    break;
                 }
                 if (proto > t) {
                     begin = mid + 1;
@@ -457,7 +458,7 @@ var Sproto = {
                 }
             }
             if (p != null) {
-                return p.p[what];
+                return p;
             }
             return null;
         }
@@ -1153,12 +1154,11 @@ var Sproto = {
 
             var len = objlen(sproto.__package, bin);
             var content = bin.buf.slice(len);
-
             if (header.type) {
                 var proto = sproto.protocol(header.type, SPROTO_REQUEST);
                 var result;
                 if (proto.p[SPROTO_REQUEST]) {
-                    result = sproto.decode(proto.p[SPROTO_REQUEST], {buf:content, sz:content.length});
+                    result = sproto.decode(proto.p[SPROTO_REQUEST].name, {buf:content, sz:content.length});
                 }
                 if (header.session) {
                     return req_cb(proto.name, result, gen_response(proto.p[SPROTO_RESPONSE], header.session));

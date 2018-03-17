@@ -30,15 +30,14 @@ function handler.on_message(ws, msg)
 
     -- 测试 sproto
     -- if (msg == 'sproto') then
+    print('[Client->]', string.byte(msg, 1, #msg))
+    print('msg length: ', #msg)
       host = sprotoloader.load(1):host "package"
 
       local type, msgType, msgTable, responseFunc = host:dispatch(msg);
+	    send_request = host:attach(sprotoloader.load(2));
 
-	    -- send_request = host:attach(sprotoloader.load(2))
-      --
-      for k,v in pairs(msgTable) do
-        print('客户端消息：', k,v)
-      end
+-- 接受客户端消息 返回结果 测试 OK
       local response = {
         result = 0,
         nickname = "long",
@@ -50,17 +49,45 @@ function handler.on_message(ws, msg)
       local responseTable = responseFunc(response);
 
       ws:send_binary(responseTable);
+-- 接受客户端消息 返回结果 测试 OK
 
-      -- local pack = send_request('heartbeat', { name = 'long' })
+      -- -- 服务器推送消息 测试 OK
+      -- local req = {
+      --     name = 'long',
+      --     total_cards = 123,
+      --     nickname = '123',
+      -- }
+      -- local pack = send_request('refresh_card', req);
+      -- print('pack', string.byte(pack, 1, #pack))
+      -- print('package length: ', #pack)
+      -- ws:send_binary(pack)
+      -- -- 服务器推送消息 测试 OK
+--
+
+-- login
+
+      -- local req = {
+      --     platform = 'mocha',
+      --     game = 'test',
+      --     token = '123456',
+      -- }
+      -- local pack = send_request('login', req, 1);
+      --
       -- local package = string.pack(">s2", pack)
-      -- print('long: ', pack);
+      -- print('pack', string.byte(pack, 1, #pack))
+      -- print('pack length: ', #pack)
+      --
+      -- print('package', string.byte(package, 1, #package))
+      -- print('package length: ', #package)
       -- ws:send_binary(package)
 
-      -- city 4 : string
-      -- country 5 : string
-      -- characters 6 : *integer
+
+
+    --   city 4 : string
+    --   country 5 : string
+    --   characters 6 : *integer
     -- else
-      -- ws:send_text('reply: '..msg);
+    --   ws:send_text('reply: '..msg);
     -- end
 end
 

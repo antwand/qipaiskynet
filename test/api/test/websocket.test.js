@@ -24,7 +24,7 @@ describe('大厅服务器', () => {
 
     it('发送Sproto消息，并接受返回结果', (done) => {
       const Sproto = require('./sproto.js');
-      fs.readFile('./test/a', function (err, buff) {
+      fs.readFile('./test/sproto', function (err, buff) {
         if (err) return console.error('error', err);
 
         var dataview = new DataView(array2arraybuffer(buff));
@@ -47,15 +47,13 @@ describe('大厅服务器', () => {
         var packer = sp.attach();
         var p = packer("login", s, 1).buf;
         var d = array2arraybuffer(p);
-
         websocket.send(d);
         websocket.on('message', (buff) => {
           var d = arraybuffer2array(toArrayBuffer(buff));
-
           function handle_rsp(session, data)
           {
             console.log('返回结果', data);
-            done();
+            // done();
           }
           sp.dispatch({buf: d, sz: d.length}, handle_rsp, handle_rsp);
         });
