@@ -51,17 +51,17 @@ function handler.on_message(ws, msg)
       ws:send_binary(responseTable);
 -- 接受客户端消息 返回结果 测试 OK
 
-      -- -- 服务器推送消息 测试 OK
-      -- local req = {
-      --     name = 'long',
-      --     total_cards = 123,
-      --     nickname = '123',
-      -- }
-      -- local pack = send_request('refresh_card', req);
-      -- print('pack', string.byte(pack, 1, #pack))
-      -- print('package length: ', #pack)
-      -- ws:send_binary(pack)
-      -- -- 服务器推送消息 测试 OK
+      -- 服务器推送消息 测试 OK
+      local req = {
+      name = 'long',
+      total_cards = 123,
+      nickname = '123',
+      }
+      local pack = send_request('refresh_card', req);
+      print('pack', string.byte(pack, 1, #pack))
+      print('package length: ', #pack)
+      ws:send_binary(pack)
+      -- 服务器推送消息 测试 OK
 --
 
 -- login
