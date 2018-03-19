@@ -9,20 +9,27 @@ const Protocal = {
     init(schema, sender, writer) {
         protocalCore.init(schema, sender, writer);
     }
-
-
-    // 客户端发送给服务端的命令
-    // 根据协议内容自动添加
-
-    // 登陆消息
-    login(args, callback) {
-        protocalCore.send('login', args, callback);
+    
+    // 发送消息
+    send(cmd,args, callback) {
+        protocalCore.send(cmd, args, callback);
     }
 
 
     // 监听服务端推送消息
     on(command, callback) {
         protocalCore.on(command, callback);
+    }
+    
+    
+    
+    
+    // 客户端发送给服务端的命令
+    // 根据协议内容自动添加
+
+    // 登陆消息
+    login(args, callback) {
+        this.send('login', args, callback);
     }
 }
 
