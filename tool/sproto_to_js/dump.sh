@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SOURCE_DIR="$DIR/../../proto/"
 
 # 发布的 目录文件
-TARGET_DIR="$DIR/bin/sproto"
+TARGET_DIR="$DIR/bin/sproto.db"
 
 
 cd "$DIR/run/" 

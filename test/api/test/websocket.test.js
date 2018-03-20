@@ -27,7 +27,7 @@ describe('大厅服务器', () => {
     });
 
     it('protocal', (done) => {
-       fs.readFile('./test/sproto', function (err, buff) {
+       fs.readFile('./test/sproto.db', function (err, buff) {
         if (err) return console.error('error', err);
 
         var dataview = new DataView(array2arraybuffer(buff));
