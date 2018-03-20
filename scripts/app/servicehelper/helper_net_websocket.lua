@@ -34,8 +34,9 @@ function handler.on_message(ws, msg)
 --    print('msg length: ', #msg)
       host = sprotoloader.load(1):host "package"
 
---      local type, msgType, msgTable, responseFunc = host:dispatch(msg);
+     local type, msgType, msgTable, responseFunc = host:dispatch(msg);
 	    send_request = host:attach(sprotoloader.load(2));
+      print(type, msgType, msgTable, responseFunc);
 
 ---- 接受客户端消息 返回结果 测试 OK
 --      local response = {
