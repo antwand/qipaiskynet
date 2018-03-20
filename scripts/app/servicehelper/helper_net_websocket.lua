@@ -30,25 +30,25 @@ function handler.on_message(ws, msg)
 
     -- 测试 sproto
     -- if (msg == 'sproto') then
-    print('[Client->]', string.byte(msg, 1, #msg))
-    print('msg length: ', #msg)
+--    print('[Client->]', string.byte(msg, 1, #msg))
+--    print('msg length: ', #msg)
       host = sprotoloader.load(1):host "package"
 
-      local type, msgType, msgTable, responseFunc = host:dispatch(msg);
+--      local type, msgType, msgTable, responseFunc = host:dispatch(msg);
 	    send_request = host:attach(sprotoloader.load(2));
 
--- 接受客户端消息 返回结果 测试 OK
-      local response = {
-        result = 0,
-        nickname = "long",
-        headimg = "none",
-        sex = 1,
-        city = "beijing",
-        country = "china",
-      }
-      local responseTable = responseFunc(response);
-
-      ws:send_binary(responseTable);
+---- 接受客户端消息 返回结果 测试 OK
+--      local response = {
+--        result = 0,
+--        nickname = "long",
+--        headimg = "none",
+--        sex = 1,
+--        city = "beijing",
+--        country = "china",
+--      }
+--      local responseTable = responseFunc(response);
+--
+--      ws:send_binary(responseTable);
 -- 接受客户端消息 返回结果 测试 OK
 
       -- 服务器推送消息 测试 OK
