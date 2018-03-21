@@ -8,7 +8,7 @@ const protocal = require('../protocal/protocal-core').default;
 
 const hallServer = {
   port: 8303,
-  hostname: 'localhost',
+  hostname: '192.168.103.98',
 }
 
 const websocketUrl = `ws://${hallServer.hostname}:${hallServer.port}/ws`;
@@ -27,7 +27,7 @@ describe('大厅服务器', () => {
     });
 
     it('protocal', (done) => {
-       fs.readFile('./test/sproto.db', function (err, buff) {
+       fs.readFile('./test/sproto.sproto', function (err, buff) {
         if (err) return console.error('error', err);
 
         var dataview = new DataView(array2arraybuffer(buff));
