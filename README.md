@@ -35,6 +35,10 @@ qipai   with  skynet
   3. lfs
   4. websocket
 
+
+
+
+
 <br>
 <br>
 
@@ -49,6 +53,12 @@ qipai   with  skynet
     > submodule远程分支发生变更后，直接使用git submodule update是不会进行更新操作的  
     > git submodule foreach git checkout master  
     > git submodule foreach git pull  
+
+  3. 配置git的最低速度和最低速度时间      
+    ``` c++
+    git config --global http.lowSpeedLimit 0
+    git config --global http.lowSpeedTime 999999         单位 秒
+    ```  
 
   3. delete all git commit logs   
     http://blog.csdn.net/yc1022/article/details/56487680   
