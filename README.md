@@ -45,7 +45,7 @@ qipai   with  skynet
 - git
 
   1. submodule  
-     git submodule add https://github.com/cloudwu/skynet.git
+     git submodule add https://github.com/cloudwu/skynet.git cloud/skynet
 
   2. update  
     git submodule init  
